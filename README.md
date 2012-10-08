@@ -1,7 +1,7 @@
 Locator
 =======
 
-Maps (module) implementation for (currently) OpenStreetMap
+Maps (module) implementation of (currently only) OpenStreetMap for Zikula 1.3.x
 
 Todo
 --------
