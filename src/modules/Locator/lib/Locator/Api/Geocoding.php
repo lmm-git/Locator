@@ -56,7 +56,7 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 		if($resultArray['json'] == '[]')
 			$resultArray['status'] = false;
 		else
-			$resultArray['status'] = max(array_keys($resultArray['status'])) + 1;
+			$resultArray['status'] = count($resultArray['status']);
 		
 		return $resultArray;
 	}
