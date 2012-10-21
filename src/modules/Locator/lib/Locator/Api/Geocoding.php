@@ -32,7 +32,7 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 	 * @see http://wiki.openstreetmap.org/
 	 *
 	 * @author Leonard Marschke, Christian Flach
-	 * @version 1.0
+	 * @version 1.1
 	 */
 	public function Nominatim($args)
 	{
