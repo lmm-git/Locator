@@ -4,8 +4,7 @@
  *
  * @copyright  (c) Leonard Marschke
  * @license    GPLv3
- * @package    Locator
- * @subpackage Installer
+ * @package    Locator/Installer
  */
 class Locator_Installer extends Zikula_AbstractInstaller
 {

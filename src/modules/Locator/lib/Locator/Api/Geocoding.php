@@ -4,8 +4,7 @@
  *
  * @copyright  (c) Leonard Marschke
  * @license    GPLv3
- * @package    Locator
- * @subpackage Geocoding
+ * @package    Locator/Geocoding
  */
 class Locator_Api_Geocoding extends Zikula_AbstractApi
 {

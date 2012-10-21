@@ -4,8 +4,7 @@
  *
  * @copyright  (c) Leonard Marschke
  * @license    GPLv3
- * @package    Locator
- * @subpackage Version
+ * @package    Locator/Version
  */
 
 /**
