@@ -7,7 +7,6 @@
  * @package    Locator/Version
  */
 
-//TEST
 /**
  * Locator Version Info.
  */
