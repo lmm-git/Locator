@@ -11,7 +11,7 @@
 		 |
 		<input type="radio" name="mapStyle" value="publicTransport" onclick="BuildMap('publicTransport');" /> {gt text="Public transport"}
 		 |
-		{gt text="Data from"} <a href="http://www.openstreetmap.org/" style="color: #000000">OpenStreetMap</a> - {gt text="published by"} <a href="http://creativecommons.org/licenses/by-sa/2.0/" style="color: #000000">CC-BY-SA 2.0</a>
+		{gt text="Data from"} <a href="http://www.openstreetmap.org/" target="_blank" style="color: #000000">OpenStreetMap</a> - {gt text="published by"} <a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank" style="color: #000000">CC-BY-SA 2.0</a>
 	</p>
 	<script type="text/javascript">
 		var lat = {{$lat}};
