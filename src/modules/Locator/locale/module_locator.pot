@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Zikula 1.x\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-08 13:00-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Locator/Api/Geocoding.php:39
+msgid "You have to pass an address!"
+msgstr ""
+
+#: lib/Locator/Api/Map.php:34 lib/Locator/Controller/Map.php:38
+msgid "Required parameters are \"lon\" (Longtitude) and \"lat\" (Latitude)"
+msgstr ""
+
+#: lib/Locator/Controller/Map.php:49
+msgid "$mode paramter is unknown. Use \"iframe\" as $mode."
+msgstr ""
+
+#. ! module name that appears in URL
+#: lib/Locator/Version.php:18 lib/Locator/Version.php:21
+msgid "Locator"
+msgstr ""
+
+#: lib/Locator/Version.php:19
+msgid "Locator engine for geocoding and displaying maps with OpenStreetMap"
+msgstr ""
+
+#: templates/Map/OpenStreetMap/Iframe.tpl:10
+msgid "Standard"
+msgstr ""
+
+#: templates/Map/OpenStreetMap/Iframe.tpl:12
+msgid "Public transport"
+msgstr ""
+
+#: templates/Map/OpenStreetMap/Iframe.tpl:14
+msgid "Data from"
+msgstr ""
+
+#: templates/Map/OpenStreetMap/Iframe.tpl:14
+msgid "published by"
+msgstr ""
+
+#: templates/Map/OpenStreetMap/Iframe.tpl:52
+msgid "Stops"
+msgstr ""
