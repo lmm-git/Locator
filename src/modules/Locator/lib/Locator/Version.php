@@ -19,7 +19,7 @@ class Locator_Version extends Zikula_AbstractVersion
 		$meta['description']    = $this->__('Locator engine for geocoding and displaying maps with OpenStreetMap');
 		//! module name that appears in URL
 		$meta['url']            = $this->__('Locator');
-		$meta['version']        = '0.0.3';
+		$meta['version']        = '0.0.4';
 		$meta['core_min']       = '1.3.3';
 		$meta['core_max']       = '1.3.99';
 

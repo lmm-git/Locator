@@ -29,6 +29,17 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	public function install()
 	{
 		$this->setVars($this->getDefaultModVars());
+		
+		
+		try {
+			DoctrineHelper::createSchema($this->entityManager, array(
+				'Locator_Entity_Places'
+			));
+		} catch (Exception $e) {
+			echo $e;
+			return false;
+		}
+		
 		// Initialisation successful
 		return true;
 	}
@@ -43,6 +54,19 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	 */
 	public function upgrade($oldversion)
 	{
+	
+	if($oldversion == '0.0.1' || $oldversion == '0.0.2' || $oldversion == '0.0.3' || $oldversion == '0.0.0')
+	{
+		try {
+			DoctrineHelper::createSchema($this->entityManager, array(
+				'Locator_Entity_Places'
+			));
+		} catch (Exception $e) {
+			echo $e;
+			return false;
+		}
+	}
+	
 	return true;
 	}
 

@@ -30,7 +30,7 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 	 *
 	 * @see http://wiki.openstreetmap.org/
 	 *
-	 * @author Leonard Marschke, Christian Flach
+	 * @author Leonard Marschke
 	 * @version 1.1
 	 */
 	public function Nominatim($args)
@@ -38,25 +38,57 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 		if(!isset($args['mixedAddress']))
 			return LogUtil::registerError($this->__('You have to pass an address!'));
 		
-		//build query
-		$query = 'search?q=' . urlencode($args['mixedAddress']) . '&format=json';
-		if(isset($args['limit']))
-			$query .= '&limit='.$args['limit'];
-
-		$resultJson = file_get_contents("http://nominatim.openstreetmap.org/" . $query);
 		
-		$resultJsondecode = json_decode($resultJson, true);
+		//check for existant DB-entry
 		
-		$resultArray = array();
-		$resultArray['array'] = $resultJsondecode;
-		$resultArray['json'] = $resultJson;
+		$search = array('address' => $args['mixedAddress'],
+		'geocoder' => 'Nominatim');
+		$dbPlaces = $this->entityManager->getRepository('Locator_Entity_Places', $search)->findBy($search);
 		
-		//Check for exit status
-		if($resultArray['json'] == '[]')
-			$resultArray['status'] = false;
+		//if there was a question to geocoder
+		if(isset($dbPlaces[0]['id']))
+		{
+			foreach($dbPlaces as $place)
+				$return[] = $place['geocoder_output'];
+			return $return;
+			
+		}
 		else
-			$resultArray['status'] = count($resultArray['status']);
+		{
+			//build query
+			$query = 'search?q=' . urlencode($args['mixedAddress']) . '&format=json';
+			if(isset($args['limit']))
+				$query .= '&limit='.$args['limit'];
+
+			$resultJson = file_get_contents("http://nominatim.openstreetmap.org/" . $query);
 		
-		return $resultArray;
+			$resultJsondecode = json_decode($resultJson, true);
+		
+			$resultArray = array();
+			$resultArray['array'] = $resultJsondecode;
+			$resultArray['json'] = $resultJson;
+		
+			//Check for exit status
+			if($resultArray['json'] == '[]')
+				$resultArray['status'] = false;
+			else
+				$resultArray['status'] = count($resultArray['array']);
+			
+			//inserting DB-Entry
+			foreach($resultJsondecode as $place)
+			{
+				$entry = new Locator_Entity_Places();
+				$entry->setGeocoder('Nominatim');
+				$entry->setAddress($args['mixedAddress']);
+				$entry->setDisplay_name($place['display_name']);
+				$entry->setLat($place['lat']);
+				$entry->setLon($place['lon']);
+				$entry->setGeocoder_output($place);
+				$entry->setDate(date('r'));
+				$this->entityManager->persist($entry);
+				$this->entityManager->flush();
+			}
+			return $resultArray;
+		}
 	}
 }
