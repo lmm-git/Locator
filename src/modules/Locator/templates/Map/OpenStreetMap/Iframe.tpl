@@ -21,29 +21,34 @@
 
 		function BuildMap(mapStyle)
 		{
-			//When firstly calling this, 
+			//When firstly calling this, the map variable does not exist and would cause an error.
 			try
 			{
 				map.destroy();
-			}catch(err)
+			}
+			catch(err)
 			{ }
 				
-			map = new OpenLayers.Map ("map", {
-			  controls:[
-				new OpenLayers.Control.Navigation({dragPanOptions: {enableKinetic: true} }),
-				new OpenLayers.Control.PanZoomBar(),
-				new OpenLayers.Control.ScaleLine({geodesic:true})
-				/*new OpenLayers.Control.MousePosition(),*/
-				/*new OpenLayers.Control.Permalink(),*/
-				/*new OpenLayers.Control.Attribution()*/
-				],
-			  maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
-			  maxResolution: 156543.0399,
-			  numZoomLevels: 19,
-			  units: 'm',
-			  projection: new OpenLayers.Projection("EPSG:900913"),
-			  displayProjection: new OpenLayers.Projection("EPSG:4326")
-			} );
+			map = new OpenLayers.Map ("map",
+				{
+				controls:
+					[
+					new OpenLayers.Control.Navigation({dragPanOptions: {enableKinetic: true} }),
+					new OpenLayers.Control.PanZoomBar(),
+					new OpenLayers.Control.ScaleLine({geodesic:true})
+					/*new OpenLayers.Control.MousePosition(),*/
+					/*new OpenLayers.Control.Permalink(),*/
+					/*new OpenLayers.Control.Attribution()*/
+					],
+				maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+				maxResolution: 156543.0399,
+				numZoomLevels: 19,
+				units: 'm',
+				projection: new OpenLayers.Projection("EPSG:900913"),
+				displayProjection: new OpenLayers.Projection("EPSG:4326")
+				}
+			);
+			
 			if (mapStyle == 'Mapnik')
 			{
 				layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
@@ -51,7 +56,15 @@
 			}
 			if (mapStyle == 'publicTransport')
 			{
-				layerTiles = new OpenLayers.Layer.OSM("{{gt text="Public Trasport"}}", "http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png", {numZoomLevels: 19,displayInLayerSwitcher:false,buffer:0});
+				layerTiles = new OpenLayers.Layer.OSM(
+					"{{gt text="Public Trasport"}}",
+					"http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png", 
+					{
+						numZoomLevels: 19,
+						displayInLayerSwitcher:false,
+						buffer:0,
+						tileOptions: {crossOriginKeyword:null}
+					});
 				layerStops = new OpenLayers.Layer.Vector("{{gt text="Stops"}}");
 				map.addLayers([layerTiles,layerStops]);
 			}
@@ -60,12 +73,12 @@
 			layerMarkers = new OpenLayers.Layer.Markers("Markers");
 			var size = new OpenLayers.Size(21,25);
 			var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-			var icon = new OpenLayers.Icon('http://www.openstreetmap.org/openlayers/img/marker.png',size,offset);
-			layerMarkers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()),icon));
+			var icon = new OpenLayers.Icon('http://www.openstreetmap.org/openlayers/img/marker.png', size, offset);
+			layerMarkers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), icon));
 			map.addLayer(layerMarkers);
 			
 			//Center map
-			map.setCenter (new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), zoom);
+			map.setCenter(new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), zoom);
 		}
 		BuildMap('Mapnik'); //When loading the homepage, build map
 	</script>
