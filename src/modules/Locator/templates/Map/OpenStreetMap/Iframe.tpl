@@ -51,7 +51,15 @@
 			}
 			if (mapStyle == 'publicTransport')
 			{
-				layerTiles = new OpenLayers.Layer.OSM("{{gt text="Public Trasport"}}", "http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png", {numZoomLevels: 19,displayInLayerSwitcher:false,buffer:0});
+				layerTiles = new OpenLayers.Layer.OSM(
+					"{{gt text="Public Trasport"}}",
+					"http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png", 
+					{
+						numZoomLevels: 19,
+						displayInLayerSwitcher:false,
+						buffer:0,
+						tileOptions: {crossOriginKeyword:null}
+					});
 				layerStops = new OpenLayers.Layer.Vector("{{gt text="Stops"}}");
 				map.addLayers([layerTiles,layerStops]);
 			}
