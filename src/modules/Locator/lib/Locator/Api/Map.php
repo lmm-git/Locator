@@ -10,9 +10,8 @@ class Locator_Api_Map extends Zikula_AbstractApi
 {
 	/**
 	 * @brief Displays a map using OpenStreetMap.
-	 * @param float $args['lon'] Longtitude.
-	 * @param float $args['lat'] Latitude.
-	 * @param string $args['style'] Style of the iframe.
+	 * @param int $args['pid'] PID of place.
+	 * @param string $args['style'] Style of the iframe (inline style).
 	 * @param string $args['mode'] Type of map. Currently only 'iframe' is supported.
 	 * @return string Iframe with map
 	 * @throws Zikula_Exception_Forbidden If $lon or $lat are missing
