@@ -3,6 +3,10 @@ Locator
 
 Maps (module) implementation of (currently only) OpenStreetMap for Zikula 1.3.x
 
+Using the Locator
+-----------------
+Please have a look at use.md
+
 Todo
 --------
 
