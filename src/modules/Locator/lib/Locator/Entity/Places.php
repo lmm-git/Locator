@@ -66,7 +66,7 @@ class Locator_Entity_Places extends Zikula_EntityAccess
 	private $geocoder_output;
 
 	/**
-	 * The following are annotations which define the married field.
+	 * The following are annotations which define the date field.
 	 * @ORM\Column(type="datetime")
 	 */
 	private $date;

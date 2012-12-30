@@ -25,31 +25,34 @@ class Locator_Controller_Map extends Zikula_AbstractController
 	 * @todo Add caching
 	 * @note Do *not* call this function directly! Use Locator_Api_Map::OpenStreetMap() instead!
 	 *
-	 * @author Christian Flach
+	 * @author Christian Flach, Leonard Marschke
 	 * @version 1.0
 	 */
 	public function OpenStreetMap()
 	{
-		$lon = FormUtil::getPassedValue('lon', null, 'GET');
-		$lat = FormUtil::getPassedValue('lat', null, 'GET');
+		$pid = FormUtil::getPassedValue('pid', null, 'GET');
 		$mode = FormUtil::getPassedValue('mode', 'iframe', 'GET');
 		
-		if(!isset($lon) || !isset($lat))
-			throw new Zikula_Exception_Forbidden($this->__('Required parameters are "lon" (Longtitude) and "lat" (Latitude)'));
+		if($pid == null)
+			throw new Zikula_Exception_Forbidden($this->__('There must be passed a pid'));
+		
+		$place = $this->entityManager->find('Locator_Entity_Places', $pid);
 		
 		switch($mode)
 		{
 		case 'iframe':
 			echo $this->view
-				->assign('lon', $lon)
-				->assign('lat', $lat)
+				->assign('lon', $place['lon'])
+				->assign('lat', $place['lat'])
 				->fetch('Map/OpenStreetMap/Iframe.tpl');
+			System::shutdown();
+			return true;
 			break;
 		default:
 			throw new Zikula_Exception_Forbidden($this->__('$mode paramter is unknown. Use "iframe" as $mode.'));
 			break;
 		}
-		return true;
+		return false;
 	}
 }
 ?>

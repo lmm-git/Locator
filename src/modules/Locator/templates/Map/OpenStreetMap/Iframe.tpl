@@ -1,3 +1,5 @@
+{modapifunc modname='Locator' type='map' func='getOSMLayers' assign='layers'}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr"> {*TODO Get language via variable*}
 <head>
@@ -7,9 +9,9 @@
 <body>
 	<div id="map" style="height:450px"></div>
 	<p style="text-align:right; font-size: 13px; font-family:Ubuntu, Arial, Times New Roman;">
-		<input type="radio" name="mapStyle" value="Mapnik" checked="checked" onclick="BuildMap('Mapnik');" /> {gt text="Standard"}
-		 |
-		<input type="radio" name="mapStyle" value="publicTransport" onclick="BuildMap('publicTransport');" /> {gt text="Public transport"}
+		{foreach from=$layers item='layer' key='key}
+			<input type="radio" name="mapStyle" value="{$layer.id}" {if $key == 0}checked="checked" {/if}onclick="BuildMap('{$layer.id}');" /> {$layer.name}
+		{/foreach}
 		 |
 		{gt text="Data from"} <a href="http://www.openstreetmap.org/" style="color: #000000">OpenStreetMap</a> - {gt text="published by"} <a href="http://creativecommons.org/licenses/by-sa/2.0/" style="color: #000000">CC-BY-SA 2.0</a>
 	</p>
@@ -36,9 +38,6 @@
 					new OpenLayers.Control.Navigation({dragPanOptions: {enableKinetic: true} }),
 					new OpenLayers.Control.PanZoomBar(),
 					new OpenLayers.Control.ScaleLine({geodesic:true})
-					/*new OpenLayers.Control.MousePosition(),*/
-					/*new OpenLayers.Control.Permalink(),*/
-					/*new OpenLayers.Control.Attribution()*/
 					],
 				maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
 				maxResolution: 156543.0399,
@@ -48,6 +47,13 @@
 				displayProjection: new OpenLayers.Projection("EPSG:4326")
 				}
 			);
+			
+			{{foreach from=$layers item='layer' key='key}}
+				if (mapStyle == '{{$layer.id}}')
+				{
+					{{$layer.code}}
+				}
+			{{/foreach}}
 			
 			if (mapStyle == 'Mapnik')
 			{

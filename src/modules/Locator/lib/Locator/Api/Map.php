@@ -23,16 +23,25 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	 * @see http://wiki.openstreetmap.org/
 	 *
 	 * @todo Add other methodes then iframe
-	 * @todo Add caching
 	 *
 	 * @author Christian Flach, Leonard Marschke
 	 * @version 1.1
 	 */
 	public function OpenStreetMap($args)
 	{
-		if(!isset($args['lon']) || !isset($args['lat']))
-			throw new Zikula_Exception_Forbidden($this->__('Required parameters are "lon" (Longtitude) and "lat" (Latitude)'));
+		if(!isset($args['pid']))
+			throw new Zikula_Exception_Forbidden($this->__('There must be passed a pid'));
 		
-		return "<iframe style=\"" . $args['style'] . "\" src=\"" . DataUtil::formatForDisplay(ModUtil::url($this->name, 'Map', 'OpenStreetMap', array('lon' => $args['lon'], 'lat' => $args['lat'], 'mode' => $args['mode']))) . "\"></iframe>";
+		return "<iframe style=\"" . $args['style'] . "\" src=\"" . DataUtil::formatForDisplay(ModUtil::url($this->name, 'Map', 'OpenStreetMap', array('pid' => $args['pid'], 'mode' => $args['mode']))) . "\"></iframe>";
+	}
+	
+	/**
+	 * @brief Getting all avaiable OSM-layers
+	 * @author Leonard Marschke
+	 * @version 1.0
+	 */
+	public function getOSMLayers($args)
+	{
+		return $this->entityManager->getRepository('Locator_Entity_OpenstreetmapLayers')->findBy(array());
 	}
 }
