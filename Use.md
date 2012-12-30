@@ -5,7 +5,7 @@ Feel free to use this module! How? Read the instructions below:
 
 Example implementation
 ----------------------
-The module is devided in 2 main sections: The geocoding and the displaying of the map. First your module hat to geocode a place with
+The module is devided in 2 main sections: The geocoding and the displaying of the map. First your module has to geocode a place with
 ```php
 ...
 $place = ModUtil::apiFunc('Locator', 'geocoding', 'Nominatim', array('mixedAddress' => 'YOUR ADDRESS HERE'));
