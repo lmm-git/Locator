@@ -140,6 +140,15 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	{
 		//Remove all ModVars
 		$this->delVars();
+		
+		//Remove all databases
+		DoctrineHelper::dropSchema($this->entityManager, array(
+			'Locator_Entity_OpenstreetmapLayers'
+		));
+		DoctrineHelper::dropSchema($this->entityManager, array(
+			'Locator_Entity_Places'
+		));
+		
 		return true;
 	}
 }
