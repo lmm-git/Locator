@@ -7,14 +7,23 @@
 	<script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>	
 </head>
 <body>
-	<div id="map" style="height:450px"></div>
-	<p style="text-align:right; font-size: 13px; font-family:Ubuntu, Arial, Times New Roman;">
-		{foreach from=$layers item='layer' key='key}
-			<input type="radio" name="mapStyle" value="{$layer.id}" {if $key == 0}checked="checked" {/if}onclick="BuildMap('{$layer.id}');" /> {$layer.name}
-		{/foreach}
-		 |
-		{gt text="Data from"} <a href="http://www.openstreetmap.org/" style="color: #000000">OpenStreetMap</a> - {gt text="published by"} <a href="http://creativecommons.org/licenses/by-sa/2.0/" style="color: #000000">CC-BY-SA 2.0</a>
-	</p>
+	<div id="map" style="height: 450px;"></div>
+	{strip}
+		<p style="text-align:right; font-size: 13px; font-family:Ubuntu, Arial, Times New Roman;">
+			{assign var='standarLayerSetted' value=false}
+			{foreach from=$layers item='layer' key='key}
+				{if $layer.active == 1}
+					<input type="radio" name="mapStyle" value="{$layer.id}" {if $standarLayerSetted == false}checked="checked" {/if}onclick="BuildMap('{$layer.id}');" />{$layer.name}
+					{if $standarLayerSetted == false}
+						{assign var='standardLayer' value=$layer.id}
+						{assign var='standarLayerSetted' value=true}
+					{/if}
+				{/if}
+			{/foreach}
+			&nbsp;|&nbsp;
+			{gt text="Data from"} <a href="http://www.openstreetmap.org/" style="color: #000000">OpenStreetMap</a> - {gt text="published by"} <a href="http://creativecommons.org/licenses/by-sa/2.0/" style="color: #000000">CC-BY-SA 2.0</a>
+		</p>
+	{/strip}
 	<script type="text/javascript">
 		var lat = {{$lat}};
 		var lon = {{$lon}};
@@ -49,31 +58,14 @@
 			);
 			
 			{{foreach from=$layers item='layer' key='key}}
-				if (mapStyle == '{{$layer.id}}')
-				{
-					{{$layer.code}}
-				}
+				{{if $layer.active == 1}}
+					if (mapStyle == '{{$layer.id}}')
+					{
+						{{$layer.code}}
+					}
+				{{/if}}
 			{{/foreach}}
 			
-			if (mapStyle == 'Mapnik')
-			{
-				layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
-				map.addLayer(layerMapnik);
-			}
-			if (mapStyle == 'publicTransport')
-			{
-				layerTiles = new OpenLayers.Layer.OSM(
-					"{{gt text="Public Trasport"}}",
-					"http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png", 
-					{
-						numZoomLevels: 19,
-						displayInLayerSwitcher:false,
-						buffer:0,
-						tileOptions: {crossOriginKeyword:null}
-					});
-				layerStops = new OpenLayers.Layer.Vector("{{gt text="Stops"}}");
-				map.addLayers([layerTiles,layerStops]);
-			}
 			
 			//Add icon to position
 			layerMarkers = new OpenLayers.Layer.Markers("Markers");
@@ -86,7 +78,7 @@
 			//Center map
 			map.setCenter(new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), zoom);
 		}
-		BuildMap('Mapnik'); //When loading the homepage, build map
+		BuildMap('{{$standardLayer}}'); //When loading the homepage, build map
 	</script>
 </body>
 </html>
