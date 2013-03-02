@@ -3,8 +3,8 @@
  * Locator
  *
  * @copyright  (c) Leonard Marschke
- * @license    GPLv3
- * @package    Locator/Installer
+ * @license	GPLv3
+ * @package	Locator/Installer
  */
 class Locator_Installer extends Zikula_AbstractInstaller
 {
@@ -77,7 +77,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		
 		try {
 			DoctrineHelper::createSchema($this->entityManager, array(
-				'Locator_Entity_OpenstreetmapLayers'
+				'Locator_Entity_Layers'
 			));
 		} catch (Exception $e) {
 			return false;
@@ -124,6 +124,23 @@ class Locator_Installer extends Zikula_AbstractInstaller
 					return false;
 				}
 				self::setStandardLayers();
+			case '1.0.0':
+				$connection = Doctrine_Manager::getInstance()->getConnection('default');
+				$sql = 'DROP TABLE IF EXISTS `Locator_OpenstreetmapLayers`';
+				$stmt = $connection->prepare($sql);
+				try {
+					$stmt->execute();
+				} catch (Exception $e) {
+					return LogUtil::registerError($e->getMessage());
+				}
+
+				try {
+					DoctrineHelper::createSchema($this->entityManager, array(
+						'Locator_Entity_Layers'
+					));
+				} catch (Exception $e) {
+					return LogUtil::registerError($e->getMessage());
+				}
 		}
 	
 	
@@ -143,7 +160,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		
 		//Remove all databases
 		DoctrineHelper::dropSchema($this->entityManager, array(
-			'Locator_Entity_OpenstreetmapLayers'
+			'Locator_Entity_Layers'
 		));
 		DoctrineHelper::dropSchema($this->entityManager, array(
 			'Locator_Entity_Places'

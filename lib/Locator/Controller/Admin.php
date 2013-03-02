@@ -72,7 +72,7 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 		if($lid == null)
 			return LogUtil::registerError($this->__('No lid given'));
 		
-		$layer = $this->entityManager->find('Locator_Entity_OpenstreetmapLayers', $lid);
+		$layer = $this->entityManager->find('Locator_Entity_Layers', $lid);
 		if($layer['id'] == '')
 			return LogUtil::registerError($this->__('No valid lid given'));
 		$this->entityManager->remove($layer);
