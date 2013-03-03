@@ -1,10 +1,10 @@
 <?php
 /**
- * Locator Map bus (currently only OpenStreetMap)
+ * Locator Map bus
  *
- * @license    LGPLv3
- * @package    Locator
- * @subpackage Map
+ * @copyright  (c) Locator Team
+ * @license    GPLv3
+ * @package    Installer
  */
 class Locator_Api_Map extends Zikula_AbstractApi
 {
@@ -22,18 +22,7 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	 * @see http://wiki.openstreetmap.org/
 	 *
 	 * @todo Add other methodes then iframe
-	 *
-	 * @author Christian Flach, Leonard Marschke
-	 * @version 1.1
 	 */
-	public function OpenStreetMap($args)
-	{
-		if(!isset($args['pid']))
-			throw new Zikula_Exception_Forbidden($this->__('There must be passed a pid'));
-		
-		return "<iframe style=\"" . $args['style'] . "\" src=\"" . DataUtil::formatForDisplay(ModUtil::url($this->name, 'Map', 'OpenStreetMap', array('pid' => $args['pid'], 'mode' => $args['mode']))) . "\"></iframe>";
-	}
-	
 	public function Iframe($args)
 	{
 		if(!isset($args['pid']))
@@ -56,7 +45,7 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	 * @author Leonard Marschke
 	 * @version 1.0
 	 */
-	public function getOSMLayers($args)
+	public function getLayers($args)
 	{
 		return $this->entityManager->getRepository('Locator_Entity_Layers')->findBy(array());
 	}
