@@ -28,7 +28,7 @@ class Locator_Entity_Layers extends Zikula_EntityAccess
 	 * @ORM\Column(type="string")
 	 */
 	private $name;
-	
+
 	/**
 	 * The following are annotations which define the mapTypes field.
 	 *
@@ -42,6 +42,13 @@ class Locator_Entity_Layers extends Zikula_EntityAccess
 	 * @ORM\Column(type="string")
 	 */
 	private $url;
+
+	/**
+	 * The following are annotations which define the license field.
+	 *
+	 * @ORM\Column(type="string")
+	 */
+	private $license;
 
 	/**
 	 * The following are annotations which define the minZoom field.
@@ -88,27 +95,32 @@ class Locator_Entity_Layers extends Zikula_EntityAccess
 	{
 		return $this->name;
 	}
-	
+
 	public function getMapTypes()
 	{
 		return $this->mapTypes;
 	}
-	
+
 	public function getUrl()
 	{
 		return $this->url;
+	}
+
+	public function getLicense()
+	{
+		return $this->license;
 	}
 
 	public function getMinZoom()
 	{
 		return $this->minZoom;
 	}
-	
+
 	public function getMaxZoom()
 	{
 		return $this->maxZoom;
 	}
-	
+
 	public function getOpacity()
 	{
 		return $this->opacity;
@@ -130,27 +142,32 @@ class Locator_Entity_Layers extends Zikula_EntityAccess
 	{
 		$this->name = $v;
 	}
-	
+
 	public function setMapTypes($v)
 	{
 		$this->mapTypes = $v;
 	}
-	
+
 	public function setUrl($v)
 	{
 		$this->url = $v;
+	}
+
+	public function setLicense($v)
+	{
+		$this->license = $v;
 	}
 
 	public function setMinZoom($v)
 	{
 		$this->minZoom = $v;
 	}
-	
+
 	public function setMaxZoom($v)
 	{
 		$this->maxZoom = $v;
 	}
-	
+
 	public function setOpacity($v)
 	{
 		$this->opacity = $v;
