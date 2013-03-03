@@ -2,63 +2,15 @@
 /**
  * Locator
  *
- * @copyright  (c) Leonard Marschke
- * @license	GPLv3
- * @package	Locator/Installer
+ * @copyright  (c) Locator Team
+ * @license    GPLv3
+ * @package    Installer
  */
 class Locator_Installer extends Zikula_AbstractInstaller
 {
-
-	/**
-	 * Provides an array containing default values for module variables (settings).
-	 *
-	 * @author Leonard Marschke
-	 * @return array An array indexed by variable name containing the default values for those variables.
-	 */
-	protected function getDefaultModVars()
-	{
-		return array();
-	}
-
-	/**
-	 * Provides standard layers for OpenStreetMap
-	 *
-	 * @author Leonard Marschke
-	 */
-	protected function setStandardLayers()
-	{
-		$em = $this->getService('doctrine.entitymanager');
-		$layer = new Locator_Entity_OpenstreetmapLayers();
-		$layer->setName($this->__('Mapnik standard layer'));
-		$layer->setCode('layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
-			map.addLayer(layerMapnik);');
-		$layer->setActive(true);
-		$em->persist($layer);
-		$em->flush();
-		
-		$layer = new Locator_Entity_OpenstreetmapLayers();
-		$layer->setName($this->__('Public transport'));
-		$layer->setCode('layerTiles = new OpenLayers.Layer.OSM(
-					"Public Trasport",
-					"http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png", 
-					{
-						numZoomLevels: 19,
-						displayInLayerSwitcher:false,
-						buffer:0,
-						tileOptions: {crossOriginKeyword:null}
-					});
-				layerStops = new OpenLayers.Layer.Vector("Stops");
-				map.addLayers([layerTiles,layerStops]);');
-		$layer->setActive(true);
-		$em->persist($layer);
-		$em->flush();
-		return true;
-	}
-
 	/**
 	 * Initialise the Locator module.
 	 *
-	 * @author Leonard Marschke
 	 * @return boolean: true on success / false on failure.
 	 */
 	public function install()
@@ -71,8 +23,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				'Locator_Entity_Places'
 			));
 		} catch (Exception $e) {
-			echo $e;
-			return false;
+			return LogUtil::registerError($e->getMessage());
 		}
 		
 		try {
@@ -80,11 +31,17 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				'Locator_Entity_Layers'
 			));
 		} catch (Exception $e) {
-			return false;
+			return LogUtil::registerError($e->getMessage());
 		}
 		
-		self::setStandardLayers();
-		
+		try {
+			DoctrineHelper::createSchema($this->entityManager, array(
+				'Locator_Entity_ProviderKey'
+			));
+		} catch (Exception $e) {
+			return LogUtil::registerError($e->getMessage());
+		}
+
 		// Initialisation successful
 		return true;
 	}
@@ -93,7 +50,6 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	/**
 	 * Upgrading the module
 	 *
-	 * @author Leonard Marschke
 	 * @return boolean: true on success / false on error
 	 * @param $oldversion
 	 */
@@ -141,6 +97,14 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				} catch (Exception $e) {
 					return LogUtil::registerError($e->getMessage());
 				}
+				
+				try {
+					DoctrineHelper::createSchema($this->entityManager, array(
+						'Locator_Entity_ProviderKey'
+					));
+				} catch (Exception $e) {
+					return LogUtil::registerError($e->getMessage());
+				}
 		}
 	
 	
@@ -150,7 +114,6 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	/**
 	 * Uninstall the module
 	 *
-	 * @author Leonard Marschke
 	 * @return boolean: true on success / false on error
 	 */
 	public function uninstall()
@@ -164,6 +127,9 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		));
 		DoctrineHelper::dropSchema($this->entityManager, array(
 			'Locator_Entity_Places'
+		));
+		DoctrineHelper::dropSchema($this->entityManager, array(
+			'Locator_Entity_ProviderKey'
 		));
 		
 		return true;
