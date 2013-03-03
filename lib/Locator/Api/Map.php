@@ -26,7 +26,7 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	public function Iframe($args)
 	{
 		if(!isset($args['pid']))
-			throw new Zikula_Exception_Forbidden($this->__('There must be passed a pid'));
+			throw new Zikula_Exception_Forbidden($this->__('$pid is missing!'));
 
 		if(isset($args['style']))
 			$styleHtml = "style=\"" . $args['style'] . "\"";
@@ -41,12 +41,32 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	}
 
 	/**
-	 * @brief Getting all avaiable OSM-layers
-	 * @author Leonard Marschke
-	 * @version 1.0
+	 * @brief Get all avaiable layers
 	 */
 	public function getLayers($args)
 	{
-		return $this->entityManager->getRepository('Locator_Entity_Layers')->findBy(array());
+		return $this->entityManager->getRepository('Locator_Entity_Layer')->findBy(array());
+	}
+	
+	/**
+	 * @brief Get a specifc provider key
+	 */
+	public function getProviderKey($args)
+	{
+		if(!isset($args['provider']))
+			throw new Zikula_Exception_Forbidden($this->__('$provider is missing!'));
+
+		$em = $this->getService('doctrine.entitymanager');
+		$qb = $em->createQueryBuilder();
+		$qb->select('p')
+		   ->from('Locator_Entity_ProviderKey', 'p')
+		   ->where('p.mapType = :mapType')
+		   ->setParameter('mapType', $args['provider']);
+		$key = $qb->getQuery()->getArrayResult();
+		
+		if($args['provider'] == 'nokia')
+			return array('appId' => $key[0]['providerKey'], 'authToken' => $key[0]['providerKe2']);
+
+		return $key[0]['providerKey'];
 	}
 }

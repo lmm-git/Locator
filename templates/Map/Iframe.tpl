@@ -3,6 +3,7 @@
 <head>
 	{switch expr=$mapType}
 		{case expr='cloudmade'}
+			{modapifunc modname='Locator' type='map' func='getProviderKey' provider='cloudmade' assign='key'}
 			<script type="text/javascript" src="http://tile.cloudmade.com/wml/latest/web-maps-lite.js"></script>
 			<script type="text/javascript">
 				var cloudmade_key = "{{$key}}";
@@ -14,6 +15,7 @@
 			<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=3.2" type="text/javascript"></script>
 		{/case}
 		{case expr='google'}
+			{modapifunc modname='Locator' type='map' func='getProviderKey' provider='google' assign='key'}
 			<script type="text/javascript" src="http://maps.google.com/maps?file=api&v=2&key=[{$key}]"></script>
 		{/case}
 		{case expr='googlev3'}
@@ -24,18 +26,21 @@
 			<script src="http://leaflet.cloudmade.com/dist/leaflet.js" type="text/javascript"></script>
 		{/case}
 		{case expr='mapquest'}
+			{modapifunc modname='Locator' type='map' func='getProviderKey' provider='mapquest' assign='key'}
 			<script src="http://www.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key={$key}" type="text/javascript"></script>
 		{/case}
 		{case expr='microsoft'}
 			<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3&mkt=en-us"></script>
 		{/case}
 		{case expr='microsoft7'}
+			{modapifunc modname='Locator' type='map' func='getProviderKey' provider='microsoft7' assign='key'}
 			<script charset="UTF-8" type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 			<script type="text/javascript">
-				var microsoft_key = "AlneHdcKOFDot4FjwyuLH8ZSUIz5rv_X22vULKa7H5ia0JnsxiykdO8y-dgLQMU6";'
+				var microsoft_key = "{{$key}}";
 			</script>
 		{/case}
 		{case expr='nokia'}
+			{modapifunc modname='Locator' type='map' func='getProviderKey' provider='nokia' assign='key'}
 			<meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9" />
 			<script src="http://api.maps.nokia.com/2.2.1/jsl.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
@@ -44,19 +49,20 @@
 			</script>
 		{/case}
 		{case expr='openlayers'}
-			{modapifunc modname='Locator' type='map' func='getLayers' assign='layers'}
 			<script src="http://openlayers.org/api/OpenLayers.js"></script>
 		{/case}
 		{case expr='openmq'}
 			<script src="http://open.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js"></script>
 		{/case}
 		{case expr='openspace'}
+			{modapifunc modname='Locator' type='map' func='getProviderKey' provider='openspace' assign='key'}
 			<script type="text/javascript" src="http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key={$key}"></script>
 		{/case}
 		{case expr='ovi'}
 			<script src="http://api.maps.ovi.com/jsl.js" type="text/javascript" charset="utf-8"></script>
 		{/case}
 		{case expr='yandex'}
+			{modapifunc modname='Locator' type='map' func='getProviderKey' provider='yandex' assign='key'}
 			<script src="http://api-maps.yandex.ru/1.1/index.xml?key={$key}" type="text/javascript"></script>
 		{/case}
 	{/switch}
@@ -85,11 +91,12 @@
 				map.autoCenterAndZoom();
 			{{/if}}
 
+			{{modapifunc modname='Locator' type='map' func='getLayers' assign='layers'}}
 			{{foreach from=$layers item='layer'}}
 				{{assign var='mapTypes' value=$layer->getMapTypes()}}
-				{{if empty($mapTypes) || in_array($mapType, $mapTypes)}}
+				{{if (empty($mapTypes) || in_array($mapType, $mapTypes)) && $layer->getActive()}}
 					{{assign var='license' value=$layer->getLicense()}}
-					map.addTileLayer("{{$layer->getUrl()}}", {{$layer->getOpacity()}}, '{{$layer->getName()}}' {{if !empty($license)}} + ' - {{$license}}' {{/if}}, {{$layer->getMinZoom()}}, {{$layer->getMaxZoom()}}, {{$layer->getSelectable()}});
+					map.addTileLayer("{{$layer->getUrl()}}", {{$layer->getOpacity()}}, '{{$layer->getName()}}' {{if !empty($license)}} + ' - {{$license}}' {{/if}}, {{$layer->getMinZoom()|default:1}}, {{$layer->getMaxZoom()|default:18}}, {{if $layer->getSelectable()}}true{{else}}false{{/if}});
 				{{/if}}
 			{{/foreach}}
 		}

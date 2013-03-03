@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Annotations define the entity mappings to database.
  *
  * @ORM\Entity
- * @ORM\Table(name="Locator_Layers")
+ * @ORM\Table(name="Locator_Layer")
  */
-class Locator_Entity_Layers extends Zikula_EntityAccess
+class Locator_Entity_Layer extends Zikula_EntityAccess
 {
 
 	/**

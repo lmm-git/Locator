@@ -4,7 +4,7 @@
 <script type="text/javascript">
 	function ConfirmDelete(mapType)
 	{
-		return confirm("{{gt text='Are you sure you want to delete your keys for %s' tag1=''}}\"" + mapType + "\"");
+		return confirm("{{gt text='Are you sure you want to delete your key for'}} \"" + mapType + "\"?");
 	}
 </script>
 {/pageaddvarblock}

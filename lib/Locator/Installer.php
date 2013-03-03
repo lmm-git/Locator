@@ -28,7 +28,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		
 		try {
 			DoctrineHelper::createSchema($this->entityManager, array(
-				'Locator_Entity_Layers'
+				'Locator_Entity_Layer'
 			));
 		} catch (Exception $e) {
 			return LogUtil::registerError($e->getMessage());
@@ -72,7 +72,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 			case '0.0.4':
 				try {
 					DoctrineHelper::createSchema($this->entityManager, array(
-						'Locator_Entity_OpenstreetmapLayers'
+						'Locator_Entity_OpenstreetmapLayer'
 					));
 				} catch (Exception $e) {
 					echo $e;
@@ -92,7 +92,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 
 				try {
 					DoctrineHelper::createSchema($this->entityManager, array(
-						'Locator_Entity_Layers'
+						'Locator_Entity_Layer'
 					));
 				} catch (Exception $e) {
 					return LogUtil::registerError($e->getMessage());
@@ -123,7 +123,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		
 		//Remove all databases
 		DoctrineHelper::dropSchema($this->entityManager, array(
-			'Locator_Entity_Layers'
+			'Locator_Entity_Layer'
 		));
 		DoctrineHelper::dropSchema($this->entityManager, array(
 			'Locator_Entity_Places'

@@ -9,35 +9,38 @@ class Locator_Api_Admin extends Zikula_AbstractApi
 {
 	/**
 	 * Get admin panel links.
-	 *
-	 *
-	 * @author Leonard Marschke
-	 * @return array Array of admin links.
 	 */
 	public function getlinks()
 	{
 		$links = array ();
 
-		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN))
+		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN)) {
 			$links[] = array (
-				'url'  => ModUtil::url('Locator', 'admin', 'toggleLayers'),
-				'text' => $this->__('Show layers'),
-				'class'=> 'z-icon-es-view'
+				'url'   => ModUtil::url('Locator', 'admin', 'view', array('ot' => 'layer')),
+				'text'  => $this->__('View layers'),
+				'class' => 'z-icon-es-view',
+				'links' => array (
+					array (
+						'url'   => ModUtil::url('Locator', 'admin', 'edit', array('ot' => 'layer')),
+						'text'  => $this->__('Add layer')
+					)
+				)
 			);
+		}
 
-		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN))
+		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN)) {
 			$links[] = array (
-				'url'  => ModUtil::url('Locator', 'admin', 'addLayer'),
-				'text' => $this->__('Add OpenStreetMap layer'),
-				'class'=> 'z-icon-es-new'
+				'url'   => ModUtil::url('Locator', 'admin', 'view', array('ot' => 'providerKey')),
+				'text'  => $this->__('View provider keys'),
+				'class' => 'z-icon-es-view',
+				'links' => array (
+					array (
+						'url'   => ModUtil::url('Locator', 'admin', 'edit', array('ot' => 'providerKey')),
+						'text'  => $this->__('Add provider key')
+					)
+				)
 			);
-
-		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN))
-			$links[] = array (
-				'url'  => ModUtil::url('Locator', 'admin', 'view', array('ot' => 'providerKey')),
-				'text' => $this->__('Manage keys'),
-				'class'=> 'z-icon-es-preview'
-			);
+		}
 
 		return $links;
 	}
