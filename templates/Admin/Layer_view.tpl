@@ -21,7 +21,7 @@
 			<th><a href="{modurl modname='Locator' type='admin' func='view' ot='layer' sort='minZoom' sortdir=$sdir}">{gt text='Min Zoom'}</a></th>
 			<th><a href="{modurl modname='Locator' type='admin' func='view' ot='layer' sort='maxZoom' sortdir=$sdir}">{gt text='Max Zoom'}</a></th>
 			<th><a href="{modurl modname='Locator' type='admin' func='view' ot='layer' sort='opacity' sortdir=$sdir}">{gt text='Opacity'}</a></th>
-			<th><a href="{modurl modname='Locator' type='admin' func='view' ot='layer' sort='selectable' sortdir=$sdir}">{gt text='Always on'}</a></th>
+			<th><a href="{modurl modname='Locator' type='admin' func='view' ot='layer' sort='alwaysOn' sortdir=$sdir}">{gt text='Always on'}</a></th>
 			<th><a href="{modurl modname='Locator' type='admin' func='view' ot='layer' sort='active' sortdir=$sdir}">{gt text='Active'}</a></th>
 			<th>{gt text='Actions'}</th>
 		</tr>
@@ -40,7 +40,7 @@
 				<td>{$item.minZoom}</td>
 				<td>{$item.maxZoom}</td>
 				<td>{$item.opacity}</td>
-				<td>{$item.selectable|invert|bool2pic}</td>
+				<td>{$item.alwaysOn|bool2pic}</td>
 				<td>{$item.active|bool2pic}</td>
 				<td>
 					<a href="{modurl modname='Locator' type='admin' func='edit' ot='layer' id=$item.id}">{icon type='edit'}</a>

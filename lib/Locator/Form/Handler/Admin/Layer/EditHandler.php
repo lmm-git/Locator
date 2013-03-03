@@ -68,7 +68,6 @@ class Locator_Form_Handler_Admin_Layer_EditHandler extends Zikula_Form_AbstractH
 			return false;
 
 		$data = $view->getValues();
-		$data['selectable'] = !$data['selectable'];
 
 		if(!$this->edit)
 		{
@@ -79,7 +78,7 @@ class Locator_Form_Handler_Admin_Layer_EditHandler extends Zikula_Form_AbstractH
 			$this->layer->setMinZoom($data['minZoom']);
 			$this->layer->setMaxZoom($data['maxZoom']);
 			$this->layer->setOpacity($data['opacity']);
-			$this->layer->setSelectable($data['selectable']);
+			$this->layer->setAlwaysOn($data['alwaysOn']);
 			$this->layer->setActive($data['active']);
 		}
 		else

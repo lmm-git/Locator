@@ -96,7 +96,7 @@
 				{{assign var='mapTypes' value=$layer->getMapTypes()}}
 				{{if (empty($mapTypes) || in_array($mapType, $mapTypes)) && $layer->getActive()}}
 					{{assign var='license' value=$layer->getLicense()}}
-					map.addTileLayer("{{$layer->getUrl()}}", {{$layer->getOpacity()}}, '{{$layer->getName()}}' {{if !empty($license)}} + ' - {{$license}}' {{/if}}, {{$layer->getMinZoom()|default:1}}, {{$layer->getMaxZoom()|default:18}}, {{if $layer->getSelectable()}}true{{else}}false{{/if}});
+					map.addTileLayer("{{$layer->getUrl()}}", {{$layer->getOpacity()}}, '{{$layer->getName()}}' {{if !empty($license)}} + ' - {{$license}}' {{/if}}, {{$layer->getMinZoom()|default:1}}, {{$layer->getMaxZoom()|default:18}}, {{if $layer->getAlwaysOn()}}true{{else}}false{{/if}});
 				{{/if}}
 			{{/foreach}}
 		}

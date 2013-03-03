@@ -43,8 +43,8 @@
 			{formfloatinput id='opacity' minValue=0 maxValue=1 text=$layer.opacity|default:1 mandatory=true}
 		</div>
 		<div class="z-formrow">
-			{formlabel __text='Always on' for='selectable'}
-			{formcheckbox id='selectable' checked=$layer.selectable|default:true}
+			{formlabel __text='Always on' for='alwaysOn'}
+			{formcheckbox id='alwaysOn' checked=$layer.alwaysOn|default:false}
 		</div>
 		<div class="z-formrow">
 			{formlabel __text='Active' for='active'}

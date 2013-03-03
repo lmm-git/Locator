@@ -72,11 +72,11 @@ class Locator_Entity_Layer extends Zikula_EntityAccess
 	private $opacity;
 
 	/**
-	 * The following are annotations which define the selectable field.
+	 * The following are annotations which define the alwaysOn field.
 	 *
 	 * @ORM\Column(type="boolean")
 	 */
-	private $selectable;
+	private $alwaysOn;
 
 	/**
 	 * The following are annotations which define the active field.
@@ -126,9 +126,9 @@ class Locator_Entity_Layer extends Zikula_EntityAccess
 		return $this->opacity;
 	}
 
-	public function getSelectable()
+	public function getAlwaysOn()
 	{
-		return $this->selectable;
+		return $this->alwaysOn;
 	}
 
 	public function getActive()
@@ -173,9 +173,9 @@ class Locator_Entity_Layer extends Zikula_EntityAccess
 		$this->opacity = $v;
 	}
 
-	public function setSelectable($v)
+	public function setAlwaysOn($v)
 	{
-		$this->selectable = $v;
+		$this->alwaysOn = $v;
 	}
 
 	public function setActive($v)
