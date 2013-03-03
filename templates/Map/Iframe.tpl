@@ -67,7 +67,7 @@
 		{/case}
 	{/switch}
 
-	<script src="https://raw.github.com/mapstraction/mxn/master/source/mxn.js?({$mapType})" type="text/javascript"></script>
+	<script type="text/javascript" src="{$baseurl}plugins/Mapstraction/lib/vendor/mxn/mxn.js?({$mapType})"></script>
 	
 	<script type="text/javascript">
 		window.onload = function() {
