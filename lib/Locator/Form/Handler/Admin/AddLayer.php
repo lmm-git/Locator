@@ -9,7 +9,7 @@
 /**
  * @brief Register FormHandler
  */
-class Locator_Form_Handler_Admin_AddOpenStreetMapLayer extends Zikula_Form_AbstractHandler
+class Locator_Form_Handler_Admin_AddLayer extends Zikula_Form_AbstractHandler
 {
 	/**
 	 * @brief Setup form.
@@ -24,7 +24,7 @@ class Locator_Form_Handler_Admin_AddOpenStreetMapLayer extends Zikula_Form_Abstr
 	{
 		$lid = FormUtil::getPassedValue('lid', null, 'GET');
 		if($lid != null)
-			$layer = $this->entityManager->find('Locator_Entity_OpenstreetmapLayers', $lid);
+			$layer = $this->entityManager->find('Locator_Entity_Layers', $lid);
 		else
 			$layer = array('active' => true);
 		$this->view->assign('layer', $layer);
@@ -58,7 +58,7 @@ class Locator_Form_Handler_Admin_AddOpenStreetMapLayer extends Zikula_Form_Abstr
 
 		if($lid != null)
 		{
-			$layer = $this->entityManager->find('Locator_Entity_OpenstreetmapLayers', $lid);
+			$layer = $this->entityManager->find('Locator_Entity_Layers', $lid);
 		}
 		else
 		{

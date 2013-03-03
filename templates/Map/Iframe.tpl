@@ -44,7 +44,7 @@
 			</script>
 		{/case}
 		{case expr='openlayers'}
-			{modapifunc modname='Locator' type='map' func='getOSMLayers' assign='layers'}
+			{modapifunc modname='Locator' type='map' func='getLayers' assign='layers'}
 			<script src="http://openlayers.org/api/OpenLayers.js"></script>
 		{/case}
 		{case expr='openmq'}
@@ -88,7 +88,8 @@
 			{{foreach from=$layers item='layer'}}
 				{{assign var='mapTypes' value=$layer->getMapTypes()}}
 				{{if empty($mapTypes) || in_array($mapType, $mapTypes)}}
-					map.addTileLayer("{{$layer->getUrl()}}", {{$layer->getOpacity()}}, "{{$layer->getName()}} test123asdfsdfjoisdcjfoisdjfo", {{$layer->getMinZoom()}}, {{$layer->getMaxZoom()}}, {{$layer->getSelectable()}});
+					{{assign var='license' value=$layer->getLicense()}}
+					map.addTileLayer("{{$layer->getUrl()}}", {{$layer->getOpacity()}}, '{{$layer->getName()}}' {{if !empty($license)}} + ' - {{$license}}' {{/if}}, {{$layer->getMinZoom()}}, {{$layer->getMaxZoom()}}, {{$layer->getSelectable()}});
 				{{/if}}
 			{{/foreach}}
 		}

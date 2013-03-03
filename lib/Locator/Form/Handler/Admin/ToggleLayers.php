@@ -9,7 +9,7 @@
 /**
  * @brief Register FormHandler
  */
-class Locator_Form_Handler_Admin_LayersOnOff extends Zikula_Form_AbstractHandler
+class Locator_Form_Handler_Admin_ToggleLayers extends Zikula_Form_AbstractHandler
 {
 	/**
 	 * @brief Setup form.
@@ -22,7 +22,7 @@ class Locator_Form_Handler_Admin_LayersOnOff extends Zikula_Form_AbstractHandler
 	 */
 	function initialize(Zikula_Form_View $view)
 	{
-		$layer = $this->entityManager->getRepository('Locator_Entity_OpenstreetmapLayers')->findBy(array());
+		$layer = $this->entityManager->getRepository('Locator_Entity_Layers')->findBy(array());
 		$this->view->assign('layerOSM', $layer);
 	}
 
@@ -52,7 +52,7 @@ class Locator_Form_Handler_Admin_LayersOnOff extends Zikula_Form_AbstractHandler
 
 		foreach($data as $key => $row)
 		{
-			$layer = $this->entityManager->find('Locator_Entity_OpenstreetmapLayers', $key);
+			$layer = $this->entityManager->find('Locator_Entity_Layers', $key);
 			$layer->setActive($row);
 			$this->entityManager->persist($layer);
 		}
