@@ -34,10 +34,41 @@ class Locator_Api_Map extends Zikula_AbstractApi
 		if(isset($args['class']))
 			$classHtml = "class=\"" . $args['class'] . "\"";
 		
-		$link = ModUtil::url($this->name, 'map', 'Iframe', array('pid' => $args['pid'], 'mapType' => $args['mapType']), null, true);
+		$link = ModUtil::url($this->name, 'map', 'Iframe', array('pid' => $args['pid'], 'mapType' => $args['mapType'], 'zoom' => $args['zoom']), null, true);
 		$linkHtml = "src=\"" . DataUtil::formatForDisplay($link) . "\"";
 
 		return "<iframe {$classHtml} {$styleHtml} {$linkHtml}></iframe>";
+	}
+
+	public function Inline($args)
+	{
+		$view = Zikula_View::getInstance('Locator');
+
+		if(!isset($args['pid']))
+			throw new Zikula_Exception_Forbidden($this->__('$pid is missing!'));
+		
+		if(isset($args['style']))
+			$styleHtml = "style=\"" . $args['style'] . "\"";
+
+		if(isset($args['class']))
+			$classHtml = "class=\"" . $args['class'] . "\"";
+		
+		if(!isset($args['zoom']))
+			$args['zoom'] = 16;
+		
+		$place = $this->entityManager->find('Locator_Entity_Places', $args['pid']);
+
+		$map = $view
+			->assign('lon', $place['lon'])
+			->assign('lat', $place['lat'])
+			->assign('address', $place->getAddress())
+			->assign('mapType', $args['mapType'])
+			->assign('zoom', $args['zoom'])
+			->assign('mapStyleHtml', $styleHtml)
+			->assign('mapClassHtml', $classHtml)
+			->fetch('Map/Inline.tpl');
+
+		return "<div style=\"position: relative\">$map</div>";
 	}
 
 	/**
