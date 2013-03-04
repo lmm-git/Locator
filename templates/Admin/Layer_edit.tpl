@@ -23,7 +23,7 @@
 		<div class="z-formrow">
 			{formlabel __text='Tile url' for='url' mandatorysym=true}
 			{formtextinput id='url' mandatory=true maxLength="255" text=$layer.url}
-			<em class="z-sub z-formnote">{gt text='Example'}: {literal}http://tile.example.com/${z}/${x}/${y}.png{/literal}</em>
+			<em class="z-sub z-formnote">{gt text='Example'}: {literal}http://tile.example.com/${z}/${x}/${y}.png or http://tile.openstreetmap.org/{Z}/{X}/{Y}.png{/literal}</em>
 		</div>
 		<div class="z-formrow">
 			{formlabel __text='License' for='license'}
