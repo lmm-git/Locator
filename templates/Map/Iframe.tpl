@@ -68,7 +68,6 @@
 	{/switch}
 
 	<script type="text/javascript" src="{$baseurl}plugins/Mapstraction/lib/vendor/mxn/mxn.js?({$mapType})"></script>
-	
 	<script type="text/javascript">
 		window.onload = function() {
 			var map = new mxn.Mapstraction('map', '{{$mapType}}'); 

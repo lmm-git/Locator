@@ -21,22 +21,24 @@
 			{formdropdownlist id="mapTypes" items=$provider mandatory=true selectionMode='multiple' selectedValue=$layer.mapTypes}
 		</div>
 		<div class="z-formrow">
-			{formlabel __text='Url' for='url' mandatorysym=true}
+			{formlabel __text='Tile url' for='url' mandatorysym=true}
 			{formtextinput id='url' mandatory=true maxLength="255" text=$layer.url}
 			<em class="z-sub z-formnote">{gt text='Example'}: {literal}http://tile.example.com/${z}/${x}/${y}.png{/literal}</em>
 		</div>
 		<div class="z-formrow">
 			{formlabel __text='License' for='license'}
 			{formtextinput id='license' maxLength="255" text=$layer.license}
-			<em class="z-sub z-formnote">{gt text='Example'}: &copy; example.com</em>
+			<em class="z-sub z-formnote">{gt text='Example'}: &copy; Openstreetmap contributors</em>
 		</div>
 		<div class="z-formrow">
-			{formlabel __text='Minimal zoom level' for='minZoom'}
-			{formintinput id='minZoom' minValue=1 maxValue=100 text=$layer.minZoom}
+			{formlabel __text='Minimal zoom level' for='minZoom' mandatorysym=true}
+			{formintinput id='minZoom' minValue=1 maxValue=100 text=$layer.minZoom|default:1 mandatory=true}
+			<em class="z-sub z-formnote">{gt text='Default: %s.' tag1=1} {gt text='This should work in most cases.'}</em>
 		</div>
 		<div class="z-formrow">
-			{formlabel __text='Maximal zoom level' for='maxZoom'}
-			{formintinput id='maxZoom' minValue=1 maxValue=100 text=$layer.maxZoom}
+			{formlabel __text='Maximal zoom level' for='maxZoom' mandatorysym=true}
+			{formintinput id='maxZoom' minValue=1 maxValue=100 text=$layer.maxZoom|default:18 mandatory=true}
+			<em class="z-sub z-formnote">{gt text='Default: %s.' tag1=18} {gt text='This should work in most cases.'}</em>
 		</div>
 		<div class="z-formrow">
 			{formlabel __text='Opacity' for='opacity' mandatorysym=true}
