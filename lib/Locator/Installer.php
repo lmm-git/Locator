@@ -8,6 +8,34 @@
  */
 class Locator_Installer extends Zikula_AbstractInstaller
 {
+	private function addDefaultLayers()
+	{
+		$layers = array();
+		
+		$layers[] = array(
+				'name'     => $this->__('Public transport map'),
+				'mapTypes' => 'openlayers',
+				'url'      => 'http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png',
+				'license'  => '&copy; by MeMoMaps',
+				'minZoom'  => 1,
+				'maxZoom'  => 18,
+				'opacity'  => 1,
+				'alwaysOn' => false,
+				'active'   => true
+		);
+
+		$em = $this->getService('doctrine.entitymanager');
+
+		foreach($layers as $layer)
+		{
+			$layerEntity = new Locator_Entity_Layer();
+			$layerEntity->merge($layer);
+			
+			$em->persist($layerEntity);
+			$em->flush();
+		}
+		return true;
+	}
 	/**
 	 * Initialise the Locator module.
 	 *
@@ -15,9 +43,6 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	 */
 	public function install()
 	{
-		$this->setVars($this->getDefaultModVars());
-		
-		
 		try {
 			DoctrineHelper::createSchema($this->entityManager, array(
 				'Locator_Entity_Places'
@@ -41,6 +66,8 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		} catch (Exception $e) {
 			return LogUtil::registerError($e->getMessage());
 		}
+
+		$this->addDefaultLayers();
 
 		// Initialisation successful
 		return true;
@@ -105,6 +132,8 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				} catch (Exception $e) {
 					return LogUtil::registerError($e->getMessage());
 				}
+				
+				$this->addDefaultLayers();
 		}
 	
 	
