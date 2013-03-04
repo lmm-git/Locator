@@ -9,7 +9,9 @@
 </script>
 {/pageaddvarblock}
 
-<a href="{modurl modname='Locator' type='admin' func='edit' ot='providerKey'}">Add a provider key</a>
+{checkpermissionblock component='Locator:ProviderKey:' instance='::' level=ACCESS_ADD}
+	<a href="{modurl modname='Locator' type='admin' func='edit' ot='providerKey'}">Add a provider key</a>
+{/checkpermissionblock}
 
 <table class="z-datatable">
 	<thead>
@@ -27,8 +29,12 @@
 				<td>{$item.providerKey}</td>
 				<td>{$item.providerKey2}</td>
 				<td>
-					<a href="{modurl modname='Locator' type='admin' func='edit' ot='providerKey' id=$item.id}">{icon type='edit'}</a>
-					<a onclick="return ConfirmDelete('{$item.mapType}')" href="{modurl modname='Locator' type='admin' func='delete' ot='providerKey' id=$item.id}">{icon type='delete'}</a>
+					{checkpermissionblock component='Locator:ProviderKey:' instance='::' level=ACCESS_EDIT}
+						<a href="{modurl modname='Locator' type='admin' func='edit' ot='providerKey' id=$item.id}">{icon type='edit'}</a>
+					{/checkpermissionblock}
+					{checkpermissionblock component='Locator:ProviderKey:' instance='::' level=ACCESS_DELETE}
+						<a onclick="return ConfirmDelete('{$item.mapType}')" href="{modurl modname='Locator' type='admin' func='delete' ot='providerKey' id=$item.id}">{icon type='delete'}</a>
+					{/checkpermissionblock}
 				</td>
 			</tr>
 		{foreachelse}

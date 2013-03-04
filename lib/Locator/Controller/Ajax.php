@@ -9,6 +9,8 @@ class Locator_Controller_Ajax extends Zikula_AbstractController
 {
 	public function toggleValue()
 	{
+		$this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . ':Layer:', '::', ACCESS_EDIT), LogUtil::getErrorMsgPermission());
+
 		$id = $this->request->query->filter('id', null, FILTER_VALIDATE_INT);
 		$field = $this->request->query->filter('field', null, FILTER_SANITIZE_STRING);
 

@@ -95,8 +95,9 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 	public function edit()
 	{
 		$objectType = $this->request->query->filter('ot', 'providerKey', FILTER_SANITIZE_STRING);
+		$id = $this->request->query->filter('id', null, FILTER_VALIDATE_INT);
 		
-		$this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . ':' . ucwords($objectType) . ':', '::', ACCESS_EDIT), LogUtil::getErrorMsgPermission());
+		$this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . ':' . ucwords($objectType) . ':', '::', ($id) ? ACCESS_EDIT : ACCESS_ADD), LogUtil::getErrorMsgPermission());
 		
 		// create new Form reference
 		$view = FormUtil::newForm($this->name, $this);

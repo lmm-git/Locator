@@ -16,7 +16,7 @@ class Locator_Version extends Zikula_AbstractVersion
 	{
 		$meta = array();
 		$meta['displayname']    = $this->__('Locator');
-		$meta['description']    = $this->__('Locator engine for geocoding and displaying maps with OpenStreetMap');
+		$meta['description']    = $this->__('Locator engine for geocoding and displaying maps using Mapstraction');
 		//! module name that appears in URL
 		$meta['url']            = $this->__('Locator');
 		$meta['version']        = '1.1.0';
@@ -25,9 +25,13 @@ class Locator_Version extends Zikula_AbstractVersion
 
 
 		// Permissions schema
-		$meta['securityschema'] = array();
+		$meta['securityschema'] =  array(
+				'Locator:Layer:' => '::',
+				'Locator:ProviderKey:' => '::'
+		);
 
 		// Module depedencies
+		// TODO Add mapstraction here if SystemPlugin depedencies are introduced!
 		$meta['dependencies'] = array();
 		return $meta;
 	}

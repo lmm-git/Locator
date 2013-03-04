@@ -14,31 +14,42 @@ class Locator_Api_Admin extends Zikula_AbstractApi
 	{
 		$links = array ();
 
-		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN)) {
+
+		$addLinks = array();
+
+		if(SecurityUtil::checkPermission('Locator:Layer:', '::', ACCESS_ADD)) {
+			$addLinks = array (
+				array (
+					'url'   => ModUtil::url('Locator', 'admin', 'edit', array('ot' => 'layer')),
+					'text'  => $this->__('Add layer')
+				)
+			);
+		}
+		
+		if(SecurityUtil::checkPermission('Locator:Layer:', '::', ACCESS_MODERATE)) {
 			$links[] = array (
 				'url'   => ModUtil::url('Locator', 'admin', 'view', array('ot' => 'layer')),
 				'text'  => $this->__('View layers'),
 				'class' => 'z-icon-es-view',
-				'links' => array (
-					array (
-						'url'   => ModUtil::url('Locator', 'admin', 'edit', array('ot' => 'layer')),
-						'text'  => $this->__('Add layer')
-					)
+				'links' => $addLinks
+			);
+		}
+
+		if(SecurityUtil::checkPermission('Locator:ProviderKey:', '::', ACCESS_ADD)) {
+			$addLinks = array (
+				array (
+					'url'   => ModUtil::url('Locator', 'admin', 'edit', array('ot' => 'layer')),
+					'text'  => $this->__('Add layer')
 				)
 			);
 		}
 
-		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN)) {
+		if(SecurityUtil::checkPermission('Locator:ProviderKey:', '::', ACCESS_MODERATE)) {
 			$links[] = array (
 				'url'   => ModUtil::url('Locator', 'admin', 'view', array('ot' => 'providerKey')),
 				'text'  => $this->__('View provider keys'),
 				'class' => 'z-icon-es-view',
-				'links' => array (
-					array (
-						'url'   => ModUtil::url('Locator', 'admin', 'edit', array('ot' => 'providerKey')),
-						'text'  => $this->__('Add provider key')
-					)
-				)
+				'links' => $addLinks
 			);
 		}
 

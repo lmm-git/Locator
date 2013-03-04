@@ -37,7 +37,9 @@
 </style>
 {/pageaddvarblock}
 
-<a href="{modurl modname='Locator' type='admin' func='edit' ot='layer'}">Add a layer</a>
+{checkpermissionblock component='Locator:Layer:' instance='::' level=ACCESS_ADD}
+	<a href="{modurl modname='Locator' type='admin' func='edit' ot='layer'}">Add a layer</a>
+{/checkpermissionblock}
 
 <table class="z-datatable">
 	<thead>
@@ -71,8 +73,12 @@
 				<td class="Locator_link" onclick="ToggleValue({$item.id}, 'alwaysOn', this)" id="alwaysOn_{$item.id}">{$item.alwaysOn|bool2pic}</td>
 				<td class="Locator_link" onclick="ToggleValue({$item.id}, 'active', this)" id="active_{$item.id}">{$item.active|bool2pic}</td>
 				<td>
-					<a href="{modurl modname='Locator' type='admin' func='edit' ot='layer' id=$item.id}">{icon type='edit'}</a>
-					<a onclick="return ConfirmDelete('{$item.name}')" href="{modurl modname='Locator' type='admin' func='delete' ot='layer' id=$item.id}">{icon type='delete'}</a>
+					{checkpermissionblock component='Locator:Layer:' instance='::' level=ACCESS_EDIT}
+						<a href="{modurl modname='Locator' type='admin' func='edit' ot='layer' id=$item.id}">{icon type='edit'}</a>
+					{/checkpermissionblock}
+					{checkpermissionblock component='Locator:Layer:' instance='::' level=ACCESS_DELETE}
+						<a onclick="return ConfirmDelete('{$item.name}')" href="{modurl modname='Locator' type='admin' func='delete' ot='layer' id=$item.id}">{icon type='delete'}</a>
+					{/checkpermissionblock}
 				</td>
 			</tr>
 		{foreachelse}
