@@ -55,7 +55,7 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 		$objectCount = count($entities);
 
 		$showAllEntries = $this->request->query->filter('showAllEntries', false, FILTER_SANITIZE_STRING);
-		if ($showAllEntries == 1 && 0) {
+		if ($showAllEntries == 1) {
 			// retrieve item list without pagination
 			//Nothing to do.
 
