@@ -1,12 +1,40 @@
 {include file='Admin/Header.tpl' __title='Map layers' img='display.png'}
 
+{pageaddvar name='javascript' value='jQuery'}
 {pageaddvarblock}
 <script type="text/javascript">
 	function ConfirmDelete(layerName)
 	{
 		return confirm("{{gt text='Are you sure you want to delete the map layer'}} \"" + layerName + "\"?");
 	}
+	
+	{{modurl modname='Locator' type='ajax' func='toggleValue' assign='url'}}
+	{{img modname='core' set='icons/extrasmall' src='button_ok.png' assign='picTrue'}}
+	{{img modname='core' set='icons/extrasmall' src='button_cancel.png' assign='picFalse'}}
+
+	function ToggleValue(id, field, element)
+	{
+		var request = jQuery.ajax({
+			url: "{{$url}}",
+			type: "GET",
+			data: {id: id, field : field},
+			dataType: "html"
+		});
+		
+		request.done(function(msg) {
+			jQuery(element).html(msg);
+		});
+		
+		request.fail(function(jqXHR, textStatus) {
+			alert( "Request failed: " + textStatus );
+		});
+	}
 </script>
+<style type="text/css">
+	.Locator_link {
+		cursor: pointer;
+	}
+</style>
 {/pageaddvarblock}
 
 <a href="{modurl modname='Locator' type='admin' func='edit' ot='layer'}">Add a layer</a>
@@ -40,8 +68,8 @@
 				<td>{$item.minZoom}</td>
 				<td>{$item.maxZoom}</td>
 				<td>{$item.opacity}</td>
-				<td>{$item.alwaysOn|bool2pic}</td>
-				<td>{$item.active|bool2pic}</td>
+				<td class="Locator_link" onclick="ToggleValue({$item.id}, 'alwaysOn', this)" id="alwaysOn_{$item.id}">{$item.alwaysOn|bool2pic}</td>
+				<td class="Locator_link" onclick="ToggleValue({$item.id}, 'active', this)" id="active_{$item.id}">{$item.active|bool2pic}</td>
 				<td>
 					<a href="{modurl modname='Locator' type='admin' func='edit' ot='layer' id=$item.id}">{icon type='edit'}</a>
 					<a onclick="return ConfirmDelete('{$item.name}')" href="{modurl modname='Locator' type='admin' func='delete' ot='layer' id=$item.id}">{icon type='delete'}</a>
