@@ -8,57 +8,66 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-30 10:12-0500\n"
+"POT-Creation-Date: 2013-03-04 17:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Locator/Form/Handler/Admin/AddOpenStreetMapLayer.php:46
-#: lib/Locator/Form/Handler/Admin/LayersOnOff.php:42
+#: lib/Locator/Installer.php:16
+msgid "Public transport map"
+msgstr ""
+
+#: lib/Locator/Controller/Admin.php:122
+msgid "Error! Invalid identifier received."
+msgstr ""
+
+#: lib/Locator/Controller/Admin.php:130
+msgid "Done! Item deleted."
+msgstr ""
+
+#: lib/Locator/Controller/Map.php:30
+msgid "You have to pass a $pid"
+msgstr ""
+
+#: lib/Locator/Form/Handler/Admin/ProviderKey/EditHandler.php:58
+msgid "Adding of provider key canceled"
+msgstr ""
+
+#: lib/Locator/Form/Handler/Admin/ProviderKey/EditHandler.php:82
+#: lib/Locator/Form/Handler/Admin/Layer/EditHandler.php:91
+msgid "Done! Item created."
+msgstr ""
+
+#: lib/Locator/Form/Handler/Admin/Layer/EditHandler.php:61
 msgid "Adding of layer canceled"
 msgstr ""
 
-#: lib/Locator/Form/Handler/Admin/AddOpenStreetMapLayer.php:74
-msgid "Layer added successfully!"
+#: lib/Locator/Api/Admin.php:21 lib/Locator/Api/Admin.php:39
+msgid "Add layer"
 msgstr ""
 
-#: lib/Locator/Form/Handler/Admin/LayersOnOff.php:62
-msgid "Layer edited successfully!"
+#: lib/Locator/Api/Admin.php:29
+msgid "View layers"
 msgstr ""
 
-#: lib/Locator/Controller/Map.php:37 lib/Locator/Api/Map.php:32
-msgid "There must be passed a pid"
-msgstr ""
-
-#: lib/Locator/Controller/Map.php:52
-msgid "$mode paramter is unknown. Use \"iframe\" as $mode."
-msgstr ""
-
-#: lib/Locator/Controller/Admin.php:73
-msgid "No lid given"
-msgstr ""
-
-#: lib/Locator/Controller/Admin.php:77
-msgid "No valid lid given"
-msgstr ""
-
-#: lib/Locator/Controller/Admin.php:81
-msgid "Entry successfuly removed"
+#: lib/Locator/Api/Admin.php:47
+msgid "View provider keys"
 msgstr ""
 
 #: lib/Locator/Api/Geocoding.php:39
 msgid "You have to pass an address!"
 msgstr ""
 
-#: lib/Locator/Api/Admin.php:24
-msgid "Show layers"
+#: lib/Locator/Api/Map.php:29 lib/Locator/Api/Map.php:48
+msgid "$pid is missing!"
 msgstr ""
 
-#: lib/Locator/Api/Admin.php:31
-msgid "Add OpenStreetMap layer"
+#: lib/Locator/Api/Map.php:88
+msgid "$provider is missing!"
 msgstr ""
 
 #. ! module name that appears in URL
@@ -67,94 +76,153 @@ msgid "Locator"
 msgstr ""
 
 #: lib/Locator/Version.php:19
-msgid "Locator engine for geocoding and displaying maps with OpenStreetMap"
+msgid "Locator engine for geocoding and displaying maps using Mapstraction"
 msgstr ""
 
-#: lib/Locator/Installer.php:32
-msgid "Mapnik standard layer"
+#: templates/Map/RawBody.tpl:3
+msgid "contributors"
 msgstr ""
 
-#: lib/Locator/Installer.php:40
-msgid "Public transport"
+#: templates/Admin/ProviderKey_edit.tpl:2
+msgid "Add a provider key"
 msgstr ""
 
-#: templates/Map/OpenStreetMap/Iframe.tpl:16
-msgid "Data from"
+#: templates/Admin/ProviderKey_edit.tpl:5
+msgid "Edit a provider key"
 msgstr ""
 
-#: templates/Map/OpenStreetMap/Iframe.tpl:16
-msgid "published by"
-msgstr ""
-
-#: templates/Map/OpenStreetMap/Iframe.tpl:63
-msgid "Public Trasport"
-msgstr ""
-
-#: templates/Map/OpenStreetMap/Iframe.tpl:71
-msgid "Stops"
-msgstr ""
-
-#: templates/Admin/Header.tpl:10
-msgid "Please activate JavaScript!"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:1
-msgid "Manage layers"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:18
-msgid "Name of layer"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:19
-msgid "Active"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:20
-msgid "Actions"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:29
-msgid "Edit"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:30
-msgid "Are you sure to remove?"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:30
-msgid "Delete"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:40
-msgid "Save"
-msgstr ""
-
-#: templates/Admin/LayersOnOff.tpl:41
-#: templates/Admin/AddOpenStreetMapLayer.tpl:28
-msgid "Cancel"
-msgstr ""
-
-#: templates/Admin/AddOpenStreetMapLayer.tpl:1
-msgid "Add a layer (OpenStreetMap)"
-msgstr ""
-
-#: templates/Admin/AddOpenStreetMapLayer.tpl:8
+#: templates/Admin/ProviderKey_edit.tpl:14 templates/Admin/Layer_edit.tpl:14
 msgid "Information"
 msgstr ""
 
-#: templates/Admin/AddOpenStreetMapLayer.tpl:10
-msgid "Name of layer (title for end-user)"
+#: templates/Admin/ProviderKey_edit.tpl:16 templates/Admin/Layer_view.tpl:41
+#: templates/Admin/Layer_edit.tpl:20
+msgid "Provider"
 msgstr ""
 
-#: templates/Admin/AddOpenStreetMapLayer.tpl:15
-msgid "Layer code (Javascript)"
+#: templates/Admin/ProviderKey_edit.tpl:21
+msgid "Key"
 msgstr ""
 
-#: templates/Admin/AddOpenStreetMapLayer.tpl:20
-msgid "Activate this layer for end-user?"
+#: templates/Admin/ProviderKey_edit.tpl:23
+msgid "Enter your provider key (\"app-id\") here."
 msgstr ""
 
-#: templates/Admin/AddOpenStreetMapLayer.tpl:27
-msgid "Add layer"
+#: templates/Admin/ProviderKey_edit.tpl:27
+msgid "Nokia Auth-Token"
+msgstr ""
+
+#: templates/Admin/ProviderKey_edit.tpl:29
+msgid ""
+"That is only necessary for Nokia. Enter your \"auth-token\" here. Leave "
+"empty if you do not use Nokia as your provider."
+msgstr ""
+
+#: templates/Admin/ProviderKey_edit.tpl:36 templates/Admin/Layer_edit.tpl:59
+msgid "Add key"
+msgstr ""
+
+#: templates/Admin/ProviderKey_edit.tpl:38 templates/Admin/Layer_edit.tpl:61
+msgid "Edit key"
+msgstr ""
+
+#: templates/Admin/ProviderKey_edit.tpl:40 templates/Admin/Layer_edit.tpl:63
+msgid "Cancel"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:1
+msgid "Map layers"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:40 templates/Admin/Layer_edit.tpl:16
+msgid "Name"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:42
+msgid "Url"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:43 templates/Admin/Layer_edit.tpl:29
+msgid "License"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:44
+msgid "Min Zoom"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:45
+msgid "Max Zoom"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:46 templates/Admin/Layer_edit.tpl:44
+msgid "Opacity"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:47 templates/Admin/Layer_edit.tpl:48
+msgid "Always on"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:48 templates/Admin/Layer_edit.tpl:52
+msgid "Active"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:49 templates/Admin/ProviderKey_view.tpl:21
+msgid "Actions"
+msgstr ""
+
+#: templates/Admin/Layer_view.tpl:78
+msgid "No layer was found."
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:2
+msgid "Add a layer"
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:5
+msgid "Edit a layer"
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:24
+msgid "Tile url"
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:26 templates/Admin/Layer_edit.tpl:31
+msgid "Example"
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:34
+msgid "Minimal zoom level"
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:36 templates/Admin/Layer_edit.tpl:41
+#, php-format
+msgid "Default: %s."
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:36 templates/Admin/Layer_edit.tpl:41
+msgid "This should work in most cases."
+msgstr ""
+
+#: templates/Admin/Layer_edit.tpl:39
+msgid "Maximal zoom level"
+msgstr ""
+
+#: templates/Admin/ProviderKey_view.tpl:1
+msgid "Provider keys"
+msgstr ""
+
+#: templates/Admin/ProviderKey_view.tpl:18
+msgid "Map provider"
+msgstr ""
+
+#: templates/Admin/ProviderKey_view.tpl:19
+msgid "Key one"
+msgstr ""
+
+#: templates/Admin/ProviderKey_view.tpl:20
+msgid "Key two"
+msgstr ""
+
+#: templates/Admin/ProviderKey_view.tpl:40
+msgid "No provider key was found."
 msgstr ""
