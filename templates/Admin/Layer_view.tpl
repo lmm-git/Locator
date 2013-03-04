@@ -1,11 +1,13 @@
 {include file='Admin/Header.tpl' __title='Map layers' img='display.png'}
 
 {pageaddvar name='javascript' value='jQuery'}
+{pageaddvar name="jsgettext" value="module_locator_js:Locator"}
+
 {pageaddvarblock}
 <script type="text/javascript">
 	function ConfirmDelete(layerName)
 	{
-		return confirm("{{gt text='Are you sure you want to delete the map layer'}} \"" + layerName + "\"?");
+		return confirm(Zikula.__f('Are you sure you want to delete the map layer "%s"?', layerName));
 	}
 	
 	{{modurl modname='Locator' type='ajax' func='toggleValue' assign='url'}}

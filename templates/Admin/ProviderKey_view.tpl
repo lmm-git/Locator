@@ -1,10 +1,11 @@
 {include file='Admin/Header.tpl' __title='Provider keys' img='display.png'}
 
+{pageaddvar name="jsgettext" value="module_locator_js:Locator"}
 {pageaddvarblock}
 <script type="text/javascript">
 	function ConfirmDelete(mapType)
 	{
-		return confirm("{{gt text='Are you sure you want to delete your key for'}} \"" + mapType + "\"?");
+		return confirm(Zikula.__f('Are you sure you want to delete your key for "%s"?', mapType));
 	}
 </script>
 {/pageaddvarblock}
@@ -33,7 +34,7 @@
 						<a href="{modurl modname='Locator' type='admin' func='edit' ot='providerKey' id=$item.id}">{icon type='edit'}</a>
 					{/checkpermissionblock}
 					{checkpermissionblock component='Locator:ProviderKey:' instance='::' level=ACCESS_DELETE}
-						<a onclick="return ConfirmDelete('{$item.mapType}')" href="{modurl modname='Locator' type='admin' func='delete' ot='providerKey' id=$item.id}">{icon type='delete'}</a>
+						<a onclick="return ConfirmDelete('{$item.mapType|getProviderNameFromId}')" href="{modurl modname='Locator' type='admin' func='delete' ot='providerKey' id=$item.id}">{icon type='delete'}</a>
 					{/checkpermissionblock}
 				</td>
 			</tr>
