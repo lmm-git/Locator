@@ -1,6 +1,9 @@
 Use Locator
 ===========
 
+**Attention! This version is still under development. Please change to the 1.0.0 branch!**
+
+
 Feel free to use this module! How? Read the instructions below:
 
 Example implementation
