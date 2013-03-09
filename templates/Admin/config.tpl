@@ -13,8 +13,8 @@
 	</fieldset>
 
 	<div class="z-buttons z-formbuttons">
-		{formbutton commandName='save' __text='Update configuration' class='z-bt-save'}
-		{formbutton commandName='cancel' __text='Cancel' class='z-bt-cancel'}
+		{formbutton commandName='save' __text='Update configuration' class='z-bt-save z-btgreen'}
+		{formbutton commandName='cancel' __text='Cancel' class='z-bt-cancel z-btred'}
 	</div>
 {/form}
 {include file='Admin/Footer.tpl'}
