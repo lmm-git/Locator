@@ -49,6 +49,14 @@ class Locator_Api_Admin extends Zikula_AbstractApi
 				'links' => $addProviderKey
 			);
 		}
+		
+		if(SecurityUtil::checkPermission('Locator::', '::', ACCESS_ADMIN)) {
+			$links[] = array (
+				'url'   => ModUtil::url('Locator', 'admin', 'config'),
+				'text'  => $this->__('Configuration'),
+				'class' => 'z-icon-es-config'
+			);
+		}
 
 		return $links;
 	}

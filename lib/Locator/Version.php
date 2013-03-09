@@ -26,7 +26,8 @@ class Locator_Version extends Zikula_AbstractVersion
 
 		// Permissions schema
 		$meta['securityschema'] =  array(
-				'Locator:Layer:' => '::',
+				'Locator::'            => '::',
+				'Locator:Layer:'       => '::',
 				'Locator:ProviderKey:' => '::'
 		);
 
