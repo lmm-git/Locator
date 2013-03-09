@@ -65,7 +65,9 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 			//build query
 			$query = 'search?q=' . urlencode($args['mixedAddress']) . '&format=json';
 			if(isset($args['limit']))
-				$query .= '&limit='.$args['limit'];
+				$query .= '&limit=' . $args['limit'];
+			if(!empty($this->getVar('nominatim_mail_address')))
+				$query .= '&email=' . $this->getVar('nominatim_mail_address');
 
 			$resultJson = file_get_contents("http://nominatim.openstreetmap.org/" . $query);
 		

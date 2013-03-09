@@ -130,4 +130,18 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 		$this->registerStatus($this->__('Done! Item deleted.'));
 		return $this->redirect(ModUtil::url($this->name, 'admin', 'view', array('ot' => $objectType)));
 	}
+	
+	public function config()
+	{
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_ADMIN));
+
+        // Create new Form reference
+        $view = FormUtil::newForm($this->name, $this);
+
+        $templateName = 'Admin/config.tpl';
+        $handlerClass = $this->name . '_Form_Handler_Admin_ConfigHandler';
+
+        // Execute form using supplied template and page event handler
+        return $view->execute($templateName, new $handlerClass());
+	}
 }
