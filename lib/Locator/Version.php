@@ -21,7 +21,7 @@ class Locator_Version extends Zikula_AbstractVersion
 		$meta['url']            = $this->__('Locator');
 		$meta['version']        = '1.0.1';
 		$meta['core_min']       = '1.3.3';
-		$meta['core_max']       = '1.3.99';
+		$meta['core_max']       = '1.3.5';
 
 
 		// Permissions schema
