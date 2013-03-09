@@ -2,7 +2,7 @@
 /**
  * Locator Geocoding bus (currently only Nominatim)
  *
- * @copyright  (c) Leonard Marschke
+ * @copyright  (c) Locator Team
  * @license    GPLv3
  * @package    Locator/Geocoding
  */
@@ -45,8 +45,10 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 		'geocoder' => 'Nominatim');
 		$dbPlaces = $this->entityManager->getRepository('Locator_Entity_Places', $search)->findBy($search);
 		
-		//if there was a question to geocoder
-		if(isset($dbPlaces[0]['id']))
+		$date = strtotime($dbPlaces[0]['date']);
+		
+		//if there was a question to geocoder and it is not too long ago.
+		if(isset($dbPlaces[0]['id']) && time() < $date + (60*60*24*30))
 		{
 			$return = array();
 			$rerurn['array'] = array();
@@ -66,8 +68,9 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 			$query = 'search?q=' . urlencode($args['mixedAddress']) . '&format=json';
 			if(isset($args['limit']))
 				$query .= '&limit=' . $args['limit'];
-			if(!empty($this->getVar('nominatim_mail_address')))
-				$query .= '&email=' . $this->getVar('nominatim_mail_address');
+			$email = $this->getVar('nominatim_mail_address');
+			if(!empty($email))
+				$query .= '&email=' . $email;
 
 			$resultJson = file_get_contents("http://nominatim.openstreetmap.org/" . $query);
 		

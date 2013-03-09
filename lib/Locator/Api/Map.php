@@ -9,49 +9,42 @@
 class Locator_Api_Map extends Zikula_AbstractApi
 {
 	/**
-	 * @brief Displays a map using OpenStreetMap.
+	 * @brief Displays a map using Mapstraction as iframe.
 	 * @param int $args['pid'] PID of place.
 	 * @param string $args['style'] Style of the iframe (inline style).
-	 * @param string $args['mode'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['class'] Class of the iframe.
+	 * @param string $args['mapType'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['zoom'] Zoom of map.
 	 * @return string Iframe with map
-	 * @throws Zikula_Exception_Forbidden If $lon or $lat are missing
-	 *
-	 * Currently there is just one method available:
-	 * - iframe: Generates an iframe including the map.
-	 *
-	 * @see http://wiki.openstreetmap.org/
-	 *
-	 * @todo Add other methodes then iframe
+	 * @throws Zikula_Exception_Forbidden If $pid is missing.
 	 */
-	public function Iframe($args)
+	public function iframe($args)
 	{
 		if(!isset($args['pid']))
 			throw new Zikula_Exception_Forbidden($this->__('$pid is missing!'));
-
-		if(isset($args['style']))
-			$styleHtml = "style=\"" . $args['style'] . "\"";
-
-		if(isset($args['class']))
-			$classHtml = "class=\"" . $args['class'] . "\"";
 		
-		$link = ModUtil::url($this->name, 'map', 'Iframe', array('pid' => $args['pid'], 'mapType' => $args['mapType'], 'zoom' => $args['zoom']), null, true);
+		$link = ModUtil::url($this->name, 'map', 'iframe', array('pid' => $args['pid'], 'mapType' => $args['mapType'], 'zoom' => $args['zoom']), null, true);
 		$linkHtml = "src=\"" . DataUtil::formatForDisplay($link) . "\"";
 
-		return "<iframe {$classHtml} {$styleHtml} {$linkHtml}></iframe>";
+		return "<iframe class=\"{$args['class']}\" style=\"{$args['style']}\" {$linkHtml}></iframe>";
 	}
 
-	public function Inline($args)
+	/**
+	 * @brief Displays an inline map using Mapstraction.
+	 * @param int $args['pid'] PID of place.
+	 * @param string $args['style'] Style of the iframe (inline style).
+	 * @param string $args['class'] Class of the iframe.
+	 * @param string $args['mapType'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['zoom'] Zoom of map.
+	 * @return string Iframe with map
+	 * @throws Zikula_Exception_Forbidden If $pid is missing.
+	 */
+	public function inline($args)
 	{
 		$view = Zikula_View::getInstance('Locator');
 
 		if(!isset($args['pid']))
 			throw new Zikula_Exception_Forbidden($this->__('$pid is missing!'));
-		
-		if(isset($args['style']))
-			$styleHtml = "style=\"" . $args['style'] . "\"";
-
-		if(isset($args['class']))
-			$classHtml = "class=\"" . $args['class'] . "\"";
 		
 		if(!isset($args['zoom']))
 			$args['zoom'] = 16;
@@ -64,15 +57,70 @@ class Locator_Api_Map extends Zikula_AbstractApi
 			->assign('address', $place->getAddress())
 			->assign('mapType', $args['mapType'])
 			->assign('zoom', $args['zoom'])
-			->assign('mapStyleHtml', $styleHtml)
-			->assign('mapClassHtml', $classHtml)
+			->assign('mapStyle', $args['style'])
+			->assign('mapClass', $args['class'])
+			->assign('rand', $args['rand']) //Used for ajax.
 			->fetch('Map/Inline.tpl');
 
-		return "<div style=\"position: relative\">$map</div>";
+		return "<div style=\"position: relative; overflow: hidden\">$map</div>";
 	}
 
 	/**
-	 * @brief Get all avaiable layers
+	 * @brief Displays a map using Mapstraction via ajax.
+	 * @param int $args['pid'] PID of place.
+	 * @param string $args['style'] Style of the iframe (inline style).
+	 * @param string $args['class'] Class of the iframe.
+	 * @param string $args['mapType'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['zoom'] Zoom of map.
+	 * @return string Iframe with map
+	 * @throws Zikula_Exception_Forbidden If $pid is missing.
+	 */
+	public function ajax($args)
+	{
+		$view = Zikula_View::getInstance('Locator');
+
+		if(!isset($args['pid']))
+			throw new Zikula_Exception_Forbidden($this->__('$pid is missing!'));
+		
+		if(!isset($args['zoom']))
+			$args['zoom'] = 16;
+		
+		$place = $this->entityManager->find('Locator_Entity_Places', $args['pid']);
+
+		$ajaxRand = mt_rand(100000, 999999);
+		$script = 
+			'var request = jQuery.ajax({
+				url: "' . ModUtil::url('Locator', 'map', 'ajax') . '",
+				type: "GET",
+				data: {rand: %RAND%, pid: ' . $args['pid'] . ', style: "' . $args['style'] . '"},
+				dataType: "html"
+			});
+	
+			request.done(function(msg) {
+				jQuery("#ajaxMap_' . $ajaxRand . '").replaceWith(msg);
+				LoadMap_%RAND%();
+			});
+	
+			request.fail(function(jqXHR, textStatus) {
+				alert( "Request failed: " + textStatus );
+			});';
+
+		$map = $view
+			->assign('lon', $place['lon'])
+			->assign('lat', $place['lat'])
+			->assign('address', $place->getAddress())
+			->assign('mapType', $args['mapType'])
+			->assign('zoom', $args['zoom'])
+			->assign('mapStyle', $args['style'])
+			->assign('mapClass', $args['class'])
+			->assign('mapLoadingScript', $script)
+			->fetch('Map/Ajax.tpl');
+
+		return "<div id=\"ajaxMap_$ajaxRand\" style=\"position: relative; overflow: hidden\">$map</div>";
+	}
+
+	/**
+	 * @brief Get all avaiable layers.
 	 */
 	public function getLayers($args)
 	{
@@ -80,7 +128,7 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	}
 	
 	/**
-	 * @brief Get a specifc provider key
+	 * @brief Get a specifc provider key.
 	 */
 	public function getProviderKey($args)
 	{
