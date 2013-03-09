@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-04 17:06+0100\n"
+"POT-Creation-Date: 2013-03-09 16:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Locator/Installer.php:16
+#: lib/Locator/Installer.php:19
 msgid "Public transport map"
 msgstr ""
 
-#: lib/Locator/Controller/Admin.php:122
+#: lib/Locator/Controller/Admin.php:131
 msgid "Error! Invalid identifier received."
 msgstr ""
 
-#: lib/Locator/Controller/Admin.php:130
+#: lib/Locator/Controller/Admin.php:139
 msgid "Done! Item deleted."
 msgstr ""
 
-#: lib/Locator/Controller/Map.php:30
+#: lib/Locator/Controller/Map.php:32
 msgid "You have to pass a $pid"
 msgstr ""
 
@@ -40,6 +40,14 @@ msgstr ""
 #: lib/Locator/Form/Handler/Admin/ProviderKey/EditHandler.php:82
 #: lib/Locator/Form/Handler/Admin/Layer/EditHandler.php:91
 msgid "Done! Item created."
+msgstr ""
+
+#: lib/Locator/Form/Handler/Admin/ConfigHandler.php:62
+msgid "Error! Failed to set configuration variables."
+msgstr ""
+
+#: lib/Locator/Form/Handler/Admin/ConfigHandler.php:65
+msgid "Done! Module configuration updated."
 msgstr ""
 
 #: lib/Locator/Form/Handler/Admin/Layer/EditHandler.php:61
@@ -58,15 +66,20 @@ msgstr ""
 msgid "View provider keys"
 msgstr ""
 
+#: lib/Locator/Api/Admin.php:56 templates/Admin/Config.tpl:1
+msgid "Configuration"
+msgstr ""
+
 #: lib/Locator/Api/Geocoding.php:39
 msgid "You have to pass an address!"
 msgstr ""
 
-#: lib/Locator/Api/Map.php:29 lib/Locator/Api/Map.php:48
+#: lib/Locator/Api/Map.php:24 lib/Locator/Api/Map.php:47
+#: lib/Locator/Api/Map.php:83
 msgid "$pid is missing!"
 msgstr ""
 
-#: lib/Locator/Api/Map.php:88
+#: lib/Locator/Api/Map.php:136
 msgid "$provider is missing!"
 msgstr ""
 
@@ -81,6 +94,27 @@ msgstr ""
 
 #: templates/Map/RawBody.tpl:3
 msgid "contributors"
+msgstr ""
+
+#: templates/Admin/Config.tpl:6
+msgid "Geocoding"
+msgstr ""
+
+#: templates/Admin/Config.tpl:9
+msgid "Email adress"
+msgstr ""
+
+#: templates/Admin/Config.tpl:11
+msgid "Read the Nominatim usage policy for further details!"
+msgstr ""
+
+#: templates/Admin/Config.tpl:16
+msgid "Update configuration"
+msgstr ""
+
+#: templates/Admin/Config.tpl:17 templates/Admin/ProviderKey_edit.tpl:40
+#: templates/Admin/Layer_edit.tpl:63
+msgid "Cancel"
 msgstr ""
 
 #: templates/Admin/ProviderKey_edit.tpl:2
@@ -124,10 +158,6 @@ msgstr ""
 
 #: templates/Admin/ProviderKey_edit.tpl:38 templates/Admin/Layer_edit.tpl:61
 msgid "Edit key"
-msgstr ""
-
-#: templates/Admin/ProviderKey_edit.tpl:40 templates/Admin/Layer_edit.tpl:63
-msgid "Cancel"
 msgstr ""
 
 #: templates/Admin/Layer_view.tpl:1
