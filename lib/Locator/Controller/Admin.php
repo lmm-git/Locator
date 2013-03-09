@@ -133,15 +133,15 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 	
 	public function config()
 	{
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_ADMIN));
+		$this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_ADMIN));
 
-        // Create new Form reference
-        $view = FormUtil::newForm($this->name, $this);
+		// Create new Form reference
+		$view = FormUtil::newForm($this->name, $this);
 
-        $templateName = 'Admin/Config.tpl';
-        $handlerClass = $this->name . '_Form_Handler_Admin_ConfigHandler';
+		$templateName = 'Admin/Config.tpl';
+		$handlerClass = $this->name . '_Form_Handler_Admin_ConfigHandler';
 
-        // Execute form using supplied template and page event handler
-        return $view->execute($templateName, new $handlerClass());
+		// Execute form using supplied template and page event handler
+		return $view->execute($templateName, new $handlerClass());
 	}
 }
