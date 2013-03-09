@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Converts a boolean value to a picture.
+ */
 function smarty_modifier_bool2pic($bool)
 {
 	$view = Zikula_View::getInstance();

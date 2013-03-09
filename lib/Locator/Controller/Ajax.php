@@ -7,6 +7,12 @@
  */
 class Locator_Controller_Ajax extends Zikula_AbstractController
 {
+	/**
+	 * This toggles a boolean database value of the Layer's entity.
+	 * @param $id The layer id.
+	 * @param field The field to change.
+	 * @return true
+	 */
 	public function toggleValue()
 	{
 		$this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . ':Layer:', '::', ACCESS_EDIT), LogUtil::getErrorMsgPermission());

@@ -2,6 +2,10 @@
 
 class Locator_Util
 {
+	/**
+	 * Get all available map providers.
+	 * @return array $provider An associtative array with the provider id, the display name and if it requires a key for displaying maps.
+	 */
 	public static function getProvider()
 	{
 		$provider = array();
@@ -24,6 +28,10 @@ class Locator_Util
 		return $provider;
 	}
 	
+	/**
+	 * Converts provider list for use with formdropdownlist.
+	 * @return array $dropdown The converted array.
+	 */
 	public static function getProviderForFormDropdown()
 	{
 		$allProvider = self::getProvider();
@@ -35,6 +43,11 @@ class Locator_Util
 		return $dropdown;
 	}
 	
+	/**
+	 * Returns the provider's display name by id.
+	 * @param int $id The provider id.
+	 * @return string $displayName The display name.
+	 */
 	public static function getProviderNameFromId($id)
 	{
 		$allProvider = self::getProvider();
