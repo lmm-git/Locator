@@ -1,7 +1,7 @@
 {include file='Admin/Header.tpl' icon='config' __title='Configuration'}
 {form cssClass='z-form'}
 	{formvalidationsummary}
-	{formsetinitialfocus inputId='bool'}
+	{formsetinitialfocus inputId='nominatim_mail_address'}
 	<fieldset>
 		<legend>{gt text='Geocoding'}</legend>
 		<h4 class="z-formnote">Nominatim</h4>
