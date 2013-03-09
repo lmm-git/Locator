@@ -2,7 +2,7 @@
 /**
  * Locator Geocoding bus (currently only Nominatim)
  *
- * @copyright  (c) Leonard Marschke
+ * @copyright  (c) Locator Team
  * @license    GPLv3
  * @package    Locator/Geocoding
  */

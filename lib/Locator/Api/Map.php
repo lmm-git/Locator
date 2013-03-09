@@ -9,19 +9,14 @@
 class Locator_Api_Map extends Zikula_AbstractApi
 {
 	/**
-	 * @brief Displays a map using OpenStreetMap.
+	 * @brief Displays a map using Mapstraction as iframe.
 	 * @param int $args['pid'] PID of place.
 	 * @param string $args['style'] Style of the iframe (inline style).
-	 * @param string $args['mode'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['class'] Class of the iframe.
+	 * @param string $args['mapType'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['zoom'] Zoom of map.
 	 * @return string Iframe with map
-	 * @throws Zikula_Exception_Forbidden If $lon or $lat are missing
-	 *
-	 * Currently there is just one method available:
-	 * - iframe: Generates an iframe including the map.
-	 *
-	 * @see http://wiki.openstreetmap.org/
-	 *
-	 * @todo Add other methodes then iframe
+	 * @throws Zikula_Exception_Forbidden If $pid is missing.
 	 */
 	public function iframe($args)
 	{
@@ -34,6 +29,16 @@ class Locator_Api_Map extends Zikula_AbstractApi
 		return "<iframe class=\"{$args['class']}\" style=\"{$args['style']}\" {$linkHtml}></iframe>";
 	}
 
+	/**
+	 * @brief Displays an inline map using Mapstraction.
+	 * @param int $args['pid'] PID of place.
+	 * @param string $args['style'] Style of the iframe (inline style).
+	 * @param string $args['class'] Class of the iframe.
+	 * @param string $args['mapType'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['zoom'] Zoom of map.
+	 * @return string Iframe with map
+	 * @throws Zikula_Exception_Forbidden If $pid is missing.
+	 */
 	public function inline($args)
 	{
 		$view = Zikula_View::getInstance('Locator');
@@ -59,7 +64,17 @@ class Locator_Api_Map extends Zikula_AbstractApi
 
 		return "<div style=\"position: relative; overflow: hidden\">$map</div>";
 	}
-	
+
+	/**
+	 * @brief Displays a map using Mapstraction via ajax.
+	 * @param int $args['pid'] PID of place.
+	 * @param string $args['style'] Style of the iframe (inline style).
+	 * @param string $args['class'] Class of the iframe.
+	 * @param string $args['mapType'] Type of map. Currently only 'iframe' is supported.
+	 * @param string $args['zoom'] Zoom of map.
+	 * @return string Iframe with map
+	 * @throws Zikula_Exception_Forbidden If $pid is missing.
+	 */
 	public function ajax($args)
 	{
 		$view = Zikula_View::getInstance('Locator');
@@ -105,7 +120,7 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	}
 
 	/**
-	 * @brief Get all avaiable layers
+	 * @brief Get all avaiable layers.
 	 */
 	public function getLayers($args)
 	{
@@ -113,7 +128,7 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	}
 	
 	/**
-	 * @brief Get a specifc provider key
+	 * @brief Get a specifc provider key.
 	 */
 	public function getProviderKey($args)
 	{

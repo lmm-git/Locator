@@ -8,6 +8,9 @@
  */
 class Locator_Installer extends Zikula_AbstractInstaller
 {
+	/**
+	 * Adds default layers to database.
+	 */
 	private function addDefaultLayers()
 	{
 		$layers = array();
@@ -36,6 +39,8 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		}
 		return true;
 	}
+
+
 	/**
 	 * Initialise the Locator module.
 	 *
@@ -135,8 +140,6 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				
 				$this->addDefaultLayers();
 		}
-	
-	
 	return true;
 	}
 

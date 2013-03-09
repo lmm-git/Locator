@@ -28,6 +28,9 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 		$this->redirect(ModUtil::url($this->name, 'admin', 'view', array('ot' => 'layer')));
 	}
 
+	/**
+	 * This method provides a generic item list overview.
+	 */
 	public function view()
 	{
 		$objectType = $this->request->query->filter('ot', 'providerKey', FILTER_SANITIZE_STRING);
@@ -92,6 +95,9 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 		return $this->view->fetch('Admin/' . ucfirst($objectType) . '_view.tpl');
 	}
 
+	/**
+	 * This method provides a generic handling of all edit requests.
+	 */
 	public function edit()
 	{
 		$objectType = $this->request->query->filter('ot', 'providerKey', FILTER_SANITIZE_STRING);
@@ -112,6 +118,9 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 		return $view->execute($template, new $handlerClass());
 	}
 
+	/**
+	 * This method provides a generic handling of simple delete requests.
+	 */
 	public function delete()
 	{
 		$objectType = $this->request->query->filter('ot', 'providerKey', FILTER_SANITIZE_STRING);
@@ -130,7 +139,10 @@ class Locator_Controller_Admin extends Zikula_AbstractController
 		$this->registerStatus($this->__('Done! Item deleted.'));
 		return $this->redirect(ModUtil::url($this->name, 'admin', 'view', array('ot' => $objectType)));
 	}
-	
+
+	/**
+	 * This method takes care of the application configuration.
+	 */
 	public function config()
 	{
 		$this->throwForbiddenUnless(SecurityUtil::checkPermission($this->name . '::', '::', ACCESS_ADMIN));
