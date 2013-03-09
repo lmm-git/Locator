@@ -138,7 +138,7 @@ class Locator_Controller_Admin extends Zikula_AbstractController
         // Create new Form reference
         $view = FormUtil::newForm($this->name, $this);
 
-        $templateName = 'Admin/config.tpl';
+        $templateName = 'Admin/Config.tpl';
         $handlerClass = $this->name . '_Form_Handler_Admin_ConfigHandler';
 
         // Execute form using supplied template and page event handler
