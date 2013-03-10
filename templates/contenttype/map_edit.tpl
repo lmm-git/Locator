@@ -38,7 +38,11 @@
 	
 	function changeZoom(zoom) {
 		if(zoom != '')
+		{
 			mapstraction.setZoom(parseInt(zoom));
+			var middle = new mxn.LatLonPoint(document.getElementById('latitude').value, document.getElementById('longitude').value);
+			mapstraction.setCenter(middle);
+		}
 	}
 	
 	function addMarker(latlon) {
