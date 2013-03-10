@@ -45,17 +45,18 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 		'geocoder' => 'Nominatim');
 		$dbPlaces = $this->entityManager->getRepository('Locator_Entity_Places', $search)->findBy($search);
 		
-		$date = strtotime($dbPlaces[0]['date']);
+		$id = $dbPlaces[0]->getId();
+		$date = $dbPlaces[0]->getDate()->format('U');
 		
 		//if there was a question to geocoder and it is not too long ago.
-		if(isset($dbPlaces[0]['id']) && time() < $date + (60*60*24*30))
+		if(isset($id) && time() < $date + (60*60*24*30))
 		{
 			$return = array();
 			$rerurn['array'] = array();
 			foreach($dbPlaces as $place)
 			{
-				$array = $place['geocoder_output'];
-				$array['pid'] = $place['id'];
+				$array = $place->getGeocoder_Output();
+				$array['pid'] = $place->getId();
 				$return['array'][] = $array;
 			}
 			$return['status'] = count($return['array']);
@@ -102,5 +103,41 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 			}
 			return $resultArray;
 		}
+	}
+	
+	public function addPlace($args)
+	{
+		$search = array('address' => $args['address'],
+						'geocoder' => $args['geocoder']);
+		$dbPlaces = $this->entityManager->getRepository('Locator_Entity_Places', $search)->findBy($search);
+
+		if(!empty($dbPlaces))
+		{
+			$id = $dbPlaces[0]->getId();
+			$date = $dbPlaces[0]->getDate()->format('U');
+			//if there was a question to geocoder and it is not too long ago.
+			if(isset($id) && time() < $date + (60*60*24*30))
+				return $id;
+		}
+
+		$entry = new Locator_Entity_Places();
+		$entry->setGeocoder($args['geocoder']);
+		$entry->setAddress($args['address']);
+		$entry->setDisplay_name($args['address']);
+		$entry->setLat($args['lat']);
+		$entry->setLon($args['lon']);
+		$entry->setGeocoder_output(isset($args['geocoder_output']) ? $args['geocoder_output'] : array());
+		$entry->setDate(isset($args['date']) ? $args['date'] : date('r'));
+		$em = $this->getService('doctrine.entitymanager');
+		$em->persist($entry);
+		$em->flush();
+		
+		return $entry->getId();
+	}
+	
+	public function getPlaceById($args)
+	{
+		$place = $this->entityManager->find('Locator_Entity_Places', $args['pid']);
+		return $place;
 	}
 }

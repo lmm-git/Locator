@@ -140,7 +140,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				}
 
 				$this->addDefaultLayers();
-
+			case '1.0.1':
 				EventUtil::registerPersistentModuleHandler('Locator', 'module.content.gettypes', array('Locator_Handlers', 'getTypes'));
 				break;
 			default:
