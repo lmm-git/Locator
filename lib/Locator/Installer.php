@@ -74,6 +74,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 
 		$this->addDefaultLayers();
 
+		EventUtil::registerPersistentModuleHandler('Locator', 'module.content.gettypes', array('Locator_Handlers', 'getTypes'));
 		// Initialisation successful
 		return true;
 	}
@@ -137,8 +138,13 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				} catch (Exception $e) {
 					return LogUtil::registerError($e->getMessage());
 				}
-				
+
 				$this->addDefaultLayers();
+			case '1.0.1':
+				EventUtil::registerPersistentModuleHandler('Locator', 'module.content.gettypes', array('Locator_Handlers', 'getTypes'));
+				break;
+			default:
+				break;
 		}
 	return true;
 	}
@@ -164,6 +170,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 			'Locator_Entity_ProviderKey'
 		));
 		
+		EventUtil::unregisterPersistentModuleHandler('Locator', 'module.content.gettypes', array('Locator_Handlers', 'getTypes'));
 		return true;
 	}
 }

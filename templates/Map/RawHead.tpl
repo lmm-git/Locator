@@ -101,10 +101,12 @@
 		{{modapifunc modname='Locator' type='map' func='getLayers' assign='layers'}}
 		{{foreach from=$layers item='layer'}}
 			{{assign var='mapTypes' value=$layer->getMapTypes()}}
-			{{if (empty($mapTypes) || in_array($mapType, $mapTypes)) && $layer->getActive()}}
+			{{if (empty($mapTypes) || in_array($mapType, (array)$mapTypes)) && $layer->getActive()}}
 				{{assign var='license' value=$layer->getLicense()}}
 				map.addTileLayer("{{$layer->getUrl()}}", {{$layer->getOpacity()}}, '{{$layer->getName()}}' {{if !empty($license)}} + ' - {{$license}}' {{/if}}, {{$layer->getMinZoom()|default:1}}, {{$layer->getMaxZoom()|default:18}}, {{if $layer->getAlwaysOn()}}true{{else}}false{{/if}});
 			{{/if}}
+		{{foreachelse}}
+		//No layers available
 		{{/foreach}}
 	}
 </script>
