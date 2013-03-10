@@ -45,23 +45,24 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 		'geocoder' => 'Nominatim');
 		$dbPlaces = $this->entityManager->getRepository('Locator_Entity_Places', $search)->findBy($search);
 		
-		$id = $dbPlaces[0]->getId();
-		$date = $dbPlaces[0]->getDate()->format('U');
-		
-		//if there was a question to geocoder and it is not too long ago.
-		if(isset($id) && time() < $date + (60*60*24*30))
+		if(!empty($dbPlaces))
 		{
-			$return = array();
-			$rerurn['array'] = array();
-			foreach($dbPlaces as $place)
+			$id = $dbPlaces[0]->getId();
+			$date = $dbPlaces[0]->getDate()->format('U');
+			//if there was a question to geocoder and it is not too long ago.
+			if(isset($id) && time() < $date + (60*60*24*30))
 			{
-				$array = $place->getGeocoder_Output();
-				$array['pid'] = $place->getId();
-				$return['array'][] = $array;
+				$return = array();
+				$rerurn['array'] = array();
+				foreach($dbPlaces as $place)
+				{
+					$array = $place->getGeocoder_Output();
+					$array['pid'] = $place->getId();
+					$return['array'][] = $array;
+				}
+				$return['status'] = count($return['array']);
+				return $return;
 			}
-			$return['status'] = count($return['array']);
-			return $return;
-			
 		}
 		else
 		{
