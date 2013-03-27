@@ -45,7 +45,9 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 		'geocoder' => 'Nominatim');
 		$dbPlaces = $this->entityManager->getRepository('Locator_Entity_Places', $search)->findBy($search);
 		
-		$date = $dbPlaces[0]['date']->getTimestamp();
+		if(isset($dbPlaces[0]['date'])) {
+			$date = $dbPlaces[0]['date']->getTimestamp();
+		}
 		
 		//if there was a question to geocoder and it is not too long ago.
 		if(isset($dbPlaces[0]['id']) && (time() < $date + (60*60*24*30) || $args['relook'] == true))
