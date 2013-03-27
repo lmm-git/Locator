@@ -20,13 +20,18 @@ class Locator_Api_Map extends Zikula_AbstractApi
 	 */
 	public function iframe($args)
 	{
-		if(!isset($args['pid']))
+		if(!isset($args['pid'])) {
 			throw new Zikula_Exception_Forbidden($this->__('$pid is missing!'));
+		} elseif($args['pid'] == 'LuMiCuLa') {
+			$link = ModUtil::url($this->name, 'map', 'iframe', array('mapType' => $args['mapType'], 'zoom' => $args['zoom']), null, true);
+			$linkHtml = "src=\"" . DataUtil::formatForDisplay($link) . "&amp;pid=\"";
+			return "<iframe class=\"{$args['class']}\" style=\"{$args['style']}\" {$linkHtml}";
+		} else {
+			$link = ModUtil::url($this->name, 'map', 'iframe', array('pid' => $args['pid'], 'mapType' => $args['mapType'], 'zoom' => $args['zoom']), null, true);
+			$linkHtml = "src=\"" . DataUtil::formatForDisplay($link) . "\"";
+			return "<iframe class=\"{$args['class']}\" style=\"{$args['style']}\" {$linkHtml}></iframe>";
+		}
 		
-		$link = ModUtil::url($this->name, 'map', 'iframe', array('pid' => $args['pid'], 'mapType' => $args['mapType'], 'zoom' => $args['zoom']), null, true);
-		$linkHtml = "src=\"" . DataUtil::formatForDisplay($link) . "\"";
-
-		return "<iframe class=\"{$args['class']}\" style=\"{$args['style']}\" {$linkHtml}></iframe>";
 	}
 
 	/**

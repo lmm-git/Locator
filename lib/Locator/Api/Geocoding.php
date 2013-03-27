@@ -48,7 +48,7 @@ class Locator_Api_Geocoding extends Zikula_AbstractApi
 		$date = strtotime($dbPlaces[0]['date']);
 		
 		//if there was a question to geocoder and it is not too long ago.
-		if(isset($dbPlaces[0]['id']) && time() < $date + (60*60*24*30))
+		if(isset($dbPlaces[0]['id']) && (time() < $date + (60*60*24*30) || $args['relook'] == true))
 		{
 			$return = array();
 			$rerurn['array'] = array();
