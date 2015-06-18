@@ -48,7 +48,7 @@ Your module must just call
 $map = ModUtil::apiFunc('Locator', 'Map', 'OpenStreetMap', array('pid' => 'YOUR PID FROM ABOVE', 'mode' => 'iframe', 'style' => 'YOUR STYLE FOR IFRAME HERE (inline style tag)'));
 ...
 ```
-This will return a html string wich contain an iframe. So the site loading isn't slower because the map tiles.
+This will return a html string wich contain an iframe. So the site loading isn't slower because of the map tiles.
 
 All avaiable commands you find here (the same as in the map API-file)
 ```php
