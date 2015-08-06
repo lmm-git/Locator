@@ -39,7 +39,7 @@
 			}
 			catch(err)
 			{ }
-				
+
 			map = new OpenLayers.Map ("map",
 				{
 				controls:
@@ -56,7 +56,7 @@
 				displayProjection: new OpenLayers.Projection("EPSG:4326")
 				}
 			);
-			
+
 			{{foreach from=$layers item='layer' key='key}}
 				{{if $layer.active == 1}}
 					if (mapStyle == '{{$layer.id}}')
@@ -65,8 +65,8 @@
 					}
 				{{/if}}
 			{{/foreach}}
-			
-			
+
+
 			//Add icon to position
 			layerMarkers = new OpenLayers.Layer.Markers("Markers");
 			var size = new OpenLayers.Size(21,25);
@@ -74,7 +74,7 @@
 			var icon = new OpenLayers.Icon('http://www.openstreetmap.org/openlayers/img/marker.png', size, offset);
 			layerMarkers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), icon));
 			map.addLayer(layerMarkers);
-			
+
 			//Center map
 			map.setCenter(new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), zoom);
 		}
