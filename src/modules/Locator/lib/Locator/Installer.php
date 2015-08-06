@@ -40,7 +40,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		$layer->setName($this->__('Public transport'));
 		$layer->setCode('layerTiles = new OpenLayers.Layer.OSM(
 					"Public Trasport",
-					"http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png",
+					"https://tile.memomaps.de/tilegen/${z}/${x}/${y}.png",
 					{
 						numZoomLevels: 19,
 						displayInLayerSwitcher:false,

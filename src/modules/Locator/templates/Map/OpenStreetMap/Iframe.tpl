@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr"> {*TODO Get language via variable*}
 <head>
-	<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
-	<script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>	
+	<script type="text/javascript" src="https://www.openlayers.org/api/OpenLayers.js"></script>
+	<script type="text/javascript" src="https://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 </head>
 <body>
 	<div id="map" style="height: 450px;"></div>
