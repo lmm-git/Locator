@@ -35,12 +35,12 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		$layer->setActive(true);
 		$em->persist($layer);
 		$em->flush();
-		
+
 		$layer = new Locator_Entity_OpenstreetmapLayers();
 		$layer->setName($this->__('Public transport'));
 		$layer->setCode('layerTiles = new OpenLayers.Layer.OSM(
 					"Public Trasport",
-					"http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png", 
+					"http://tile.memomaps.de/tilegen/${z}/${x}/${y}.png",
 					{
 						numZoomLevels: 19,
 						displayInLayerSwitcher:false,
@@ -64,8 +64,8 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	public function install()
 	{
 		$this->setVars($this->getDefaultModVars());
-		
-		
+
+
 		try {
 			DoctrineHelper::createSchema($this->entityManager, array(
 				'Locator_Entity_Places'
@@ -74,7 +74,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 			echo $e;
 			return false;
 		}
-		
+
 		try {
 			DoctrineHelper::createSchema($this->entityManager, array(
 				'Locator_Entity_OpenstreetmapLayers'
@@ -82,9 +82,9 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		} catch (Exception $e) {
 			return false;
 		}
-		
+
 		self::setStandardLayers();
-		
+
 		// Initialisation successful
 		return true;
 	}
@@ -99,7 +99,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	 */
 	public function upgrade($oldversion)
 	{
-	
+
 		switch($oldversion)
 		{
 			case '0.0.0':
@@ -125,8 +125,8 @@ class Locator_Installer extends Zikula_AbstractInstaller
 				}
 				self::setStandardLayers();
 		}
-	
-	
+
+
 	return true;
 	}
 
@@ -140,7 +140,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 	{
 		//Remove all ModVars
 		$this->delVars();
-		
+
 		//Remove all databases
 		DoctrineHelper::dropSchema($this->entityManager, array(
 			'Locator_Entity_OpenstreetmapLayers'
@@ -148,7 +148,7 @@ class Locator_Installer extends Zikula_AbstractInstaller
 		DoctrineHelper::dropSchema($this->entityManager, array(
 			'Locator_Entity_Places'
 		));
-		
+
 		return true;
 	}
 }
